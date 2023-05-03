@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/idleformulas/static/css/main.33864ac0.css",
-    "main.js": "/idleformulas/static/js/main.295a701f.js",
+    "main.js": "/idleformulas/static/js/main.316886b2.js",
     "index.html": "/idleformulas/index.html"
   },
   "entrypoints": [
     "static/css/main.33864ac0.css",
-    "static/js/main.295a701f.js"
+    "static/js/main.316886b2.js"
   ]
 }
