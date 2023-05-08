@@ -12,15 +12,10 @@ Research All Button unlocked via Mail, with hotkey R
 
 ============DONE=============
 
-More Customization:
-Setting to prevent switching tabs when starting a challenge
-Setting to add Display Mode filters for x/x'/x''/x'''
-Warning when doing Basic Reset while unlockable Formula
-Header Display Mode now supports Vertical and Horizontal
+Changes:
+Bigger font sizes for vertical and horizontal header layout
 
 Fixes:
-Fixed issue where importing a game would not apply defaults for new settings
-Save system now supports +/-Infinity values
-Show Apply Cost for Equipped Formulas in Shop when Shop Prices is turned on
-Minor adaptions to some texts
-Formulas beyond inventory size get kicked out of inventory
+Fixed typo "congratiualations" >> "congratulations"
+Passive alpha interval now gets correctly capped at 1 day 
+Vertical header layout does not spoil stars anymore
