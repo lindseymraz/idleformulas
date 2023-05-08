@@ -16,6 +16,7 @@ Changes:
 Bigger font sizes for vertical and horizontal header layout
 
 Fixes:
+Added a library that hopefully (?) fixes the problem with browsers throttling inactive tabs
 Fixed typo "congratiualations" >> "congratulations"
 Passive alpha interval now gets correctly capped at 1 day 
 Vertical header layout does not spoil stars anymore
