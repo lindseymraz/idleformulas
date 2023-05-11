@@ -22,33 +22,50 @@ export const formatNumber = (number, numberFormat, decimals=0, smallfixed=false,
         return number.toFixed(0)
     } else {
         const aNumberSplits = sNumberString.split("e+")
-        const fMultiplier = parseFloat(aNumberSplits[0]) * 1.0000000001
-        const iExponent = parseInt(aNumberSplits[1])
+        var fMultiplier = parseFloat(aNumberSplits[0]) * 1.0000000001
+        var iExponent = parseInt(aNumberSplits[1])
         const aSymbols = ["","K","M","B","T","Q","P","S","V","O","N","D"]
         const aExtras = [1,10,100]
+
         let sSymbol
         let iExtra
+
+        //fixes problem where 9.9999e19 gets displayed as 10.000e19 instead of 1e20
+        const jankfix = () => {
+            if (decimals && fMultiplier * iExtra * Math.pow(10, decimals) >= 10 * iExtra * Math.pow(10,decimals) - 0.5) {
+                fMultiplier = 1
+                iExponent++
+            }
+        }
+
         switch (numberFormat) {
             case "SCIENTIFIC":
-                sSymbol = "e" + iExponent
                 iExtra = 1
+                jankfix()
+                sSymbol = "e" + iExponent
                 break;
             case "AMBIGUOUS":
                 if (number >= 1e36) {
                     sSymbol = "e?"
                     iExtra = 1
+                    jankfix()
                 } else {
                     sSymbol = "?"
+                    iExtra = aExtras[iExponent % 3]
+                    jankfix()
                     iExtra = aExtras[iExponent % 3]
                 }
                 break;
             default: //includes LETTER
                 if (number >= 1e36) {
-                    sSymbol = "e" + iExponent
                     iExtra = 1
+                    jankfix()
+                    sSymbol = "e" + iExponent
                 } else {
-                    sSymbol = aSymbols[Math.floor(iExponent / 2.9999)]
                     iExtra = aExtras[iExponent % 3]
+                    jankfix()
+                    iExtra = aExtras[iExponent % 3]
+                    sSymbol = aSymbols[Math.floor(iExponent / 2.9999)]
                 }
                 break;
         }
@@ -57,6 +74,7 @@ export const formatNumber = (number, numberFormat, decimals=0, smallfixed=false,
         } else if (!decimals && (fMultiplier * iExtra) % 1 > 0.05) {
             decimals = 1
         }
+
         return (fMultiplier * iExtra).toFixed(decimals) + sSymbol
     }
 }

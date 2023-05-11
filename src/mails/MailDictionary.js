@@ -1,3 +1,5 @@
+import { countAlphaUpgrades } from "../alpha/AlphaUpgradeTab"
+import { getChallengeBonus } from "../savestate"
 import { notify } from "../utilities"
 
 const getHomeworkProgress = ()=>[[false,false,false,false],[false,false,false,false],[false,false,false,false],[false,false,false,false]]
@@ -354,7 +356,7 @@ export const mailDictionary = {
         sender: "Academy",
         check: (state)=>(state.researchLevel["x"] >= 100 && state.researchLevel["x'"] >= 100 && state.researchLevel["x''"] >= 100 && state.researchLevel["x'''"] >= 100),
         delay: 128,
-        afterComplete: [["Idle","God"]],
+        afterComplete: [["Idle","God","MythicalStones"]],
     },
     "Stones":{
         id: "Stones",
@@ -363,6 +365,18 @@ export const mailDictionary = {
         responses: [<>UNLOCK STARTING STONES</>],
         sender: "Academy",
         check: (state)=>(Object.keys(state.startingStoneTurned).length > 0),
+        abandon: (state)=>state.mailsReceived["MythicalStones"],
+        delay: 280,
+        afterComplete: [["MaxStones"]],
+    },
+    "MythicalStones":{
+        id: "MythicalStones",
+        title: "Leaving no Stone Unturned",
+        content: <>There is a legend at our academy about a hero who embarks on a quest to find nine mythical stones. Most likely it is just gossip, and not useful for anything of importance. But if you insist and can find some stones, then you may use our academy garden to play with them.</>,
+        responses: [<>UNLOCK STARTING STONES</>],
+        sender: "Academy",
+        check: (state)=>(getChallengeBonus(state).full >= 1 && countAlphaUpgrades(state)>=9 && (state.researchLevel["x"] >= 2500 || state.researchLevel["x'"] >= 2500 || state.researchLevel["x''"] >= 2500 || state.researchLevel["x'''"] >= 2500)),
+        abandon: (state)=>state.mailsReceived["Stones"],
         delay: 380,
         afterComplete: [["MaxStones"]],
     },
@@ -647,7 +661,7 @@ export const mailDictionary = {
 }
 
 const worldformula = ["Warning", "What", "Who", "Still", "Formula", "Joined", "How", "Dangerous", "After", "Found", "Nothing"] //Formula Layer + Alpha Layer
-const academy = ["Welcome", "Research", "Challenges", "Stones", "Maxxed", "Idle", "God", "MaxStones", "Hint", "TrueHint"] //Alpha Layer
+const academy = ["Welcome", "Research", "Challenges", "Stones", "MythicalStones", "Maxxed", "Idle", "God", "MaxStones", "Hint", "TrueHint"] //Alpha Layer
 const homework = ["Homework", "Learn", "Important", "Refuse", "Klausi", "Henry", "Powerful", "Tommy", "Jimmy", "Gary", "Thx", "Profit", "Children"] //Alpha Layer
 
 const prince = ["Prince", "Transfer", "Failed", "Virus", "Sent", "Rich"] //Formula Layer

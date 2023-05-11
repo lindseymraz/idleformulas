@@ -83,14 +83,14 @@ function App() {
     {state.settings.headerDisplay === "VERTICAL" && <div style={{fontSize: "32px", fontWeight:"bold", marginLeft: "20px", marginBottom: "10px", textAlign:"left"}}>
       <div>x&nbsp;=&nbsp;{formatNumber(state.xValue[0], state.settings.numberFormat, 6, false, false)}</div>
       {state.progressionLayer >= 1 && <div>&alpha;&nbsp;=&nbsp;{formatNumber(state.alpha, state.settings.numberFormat, 6, false, false)}</div>}
-      {state.destinyStars >= 1 && <div style={{marginTop:"-4px"}}>&#9733;&nbsp;=&nbsp;{formatNumber(state.destinyStars, state.settings.numberFormat, 6, false, false)}</div>}
       {state.destinyStars >= 1 && <div>&lambda;&nbsp;=&nbsp;{formatNumber(state.starLight, state.settings.numberFormat, 6, false, false)}</div>}
+      {state.destinyStars >= 1 && <div style={{marginTop:"-4px"}}>&#9733;&nbsp;=&nbsp;{formatNumber(state.destinyStars, state.settings.numberFormat, 6, false, false)}</div>}
     </div>}
     {state.settings.headerDisplay === "HORIZONTAL" && <div style={{fontSize: "36px", fontWeight:"bold", marginLeft: "20px", marginBottom: "10px", textAlign:"left"}}>
       <span>x&nbsp;=&nbsp;{formatNumber(state.xValue[0], state.settings.numberFormat, 6, false, false)}{spaces()}</span>
       {state.progressionLayer >= 1 && <span>&alpha;&nbsp;=&nbsp;{formatNumber(state.alpha, state.settings.numberFormat, 6, false, false)}{spaces()}</span>}
-      {state.destinyStars >= 1 && <span style={{marginTop:"-4px"}}>&#9733;&nbsp;=&nbsp;{formatNumber(state.destinyStars, state.settings.numberFormat, 6, false, false)}{spaces()}</span>}
       {state.destinyStars >= 1 && <span>&lambda;&nbsp;=&nbsp;{formatNumber(state.starLight, state.settings.numberFormat, 6, false, false)}{spaces()}</span>}
+      {state.destinyStars >= 1 && <span style={{marginTop:"-4px"}}>&#9733;&nbsp;=&nbsp;{formatNumber(state.destinyStars, state.settings.numberFormat, 6, false, false)}{spaces()}</span>}
     </div>}
     {state.settings.headerDisplay === "X" && <h1 style={{fontSize: "40px", marginLeft: "20px", marginBottom: "10px", textAlign:"left"}}>x&nbsp;=&nbsp;{formatNumber(state.xValue[0], state.settings.numberFormat, 6, false, false)}</h1>}
     {state.settings.headerDisplay === "ALPHA" && <h1 style={{fontSize: "40px", marginLeft: "20px", marginBottom: "10px", textAlign:"left"}}>&alpha;&nbsp;=&nbsp;{formatNumber(state.alpha, state.settings.numberFormat, 6, false, false)}</h1>}

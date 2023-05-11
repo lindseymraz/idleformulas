@@ -14,7 +14,9 @@ export const checkNewMails = (state)=>{
     for (let i = state.mailsForCheck.length - 1; i >= 0; i--) {
         const mailid = state.mailsForCheck[i]
         const mail = mailDictionary[mailid]
-        if (!mail.check || mail.check(state)) {
+        if (mail.abandon?.(state)) {
+            state.mailsForCheck.splice(i, 1)
+        } else if (!mail.check || mail.check(state)) {
             state.mailsPending.push({mailid:mailid, sentTime:Date.now()})
             state.mailsForCheck.splice(i, 1)
             if (mail.afterCheck)
@@ -29,7 +31,7 @@ export const updatePendingMails = (state)=>{
         const mailid = state.mailsPending[i].mailid
         const mail = mailDictionary[mailid]
         if (!mail.delay || Date.now() - state.mailsPending[i].sentTime > 1000 * mail.delay / getGlobalMultiplier(state)) {
-            if (state.mailsReceived[mailid]) { //Safety Check to prevent duplicate Mails
+            if (state.mailsReceived[mailid] || mail.abandon?.(state)) { //Safety Check to prevent duplicate Mails
                 state.mailsPending.splice(i, 1)
                 continue
             }

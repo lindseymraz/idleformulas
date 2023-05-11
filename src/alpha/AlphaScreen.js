@@ -17,7 +17,7 @@ return (
         <button style={{marginLeft: "20px"}} onClick={()=>setAlphaTab("AlphaUpgradeTab")}>Upgrades</button>&nbsp;
         {state.mailsCompleted["Research"] !== undefined && <><button onClick={()=>setAlphaTab("AlphaResearchTab")}>Research</button>&nbsp;</>} 
         {state.mailsCompleted["Challenges"] !== undefined && <><button onClick={()=>setAlphaTab("AlphaChallengeTab")}>Challenges</button>&nbsp;</>}
-        {state.mailsCompleted["Stones"] !== undefined && <button onClick={()=>setAlphaTab("AlphaStonesTab")}>Stones</button>}
+        {(state.mailsCompleted["Stones"] !== undefined || state.mailsCompleted["MythicalStones"] !== undefined) && <button onClick={()=>setAlphaTab("AlphaStonesTab")}>Stones</button>}
         <TabContent selectedTabKey={state.selectedAlphaTabKey}>
             <AlphaUpgradeTab tabKey="AlphaUpgradeTab" popup={popup} state={state} updateState={updateState} setTotalClicks={setTotalClicks}/>
             <AlphaResearchTab tabKey="AlphaResearchTab" popup={popup} state={state} updateState={updateState} setTotalClicks={setTotalClicks}/>

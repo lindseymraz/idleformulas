@@ -13,10 +13,10 @@ Research All Button unlocked via Mail, with hotkey R
 ============DONE=============
 
 Changes:
-Bigger font sizes for vertical and horizontal header layout
+Positions of Destiny Stars and Starlight swapped in Header Display
+Added alternative Method to Unlock Stones Tab with Milestone 11 (new Mail!)
 
 Fixes:
-Added a library that hopefully (?) fixes the problem with browsers throttling inactive tabs
-Fixed typo "congratiualations" >> "congratulations"
-Passive alpha interval now gets correctly capped at 1 day 
-Vertical header layout does not spoil stars anymore
+Best Playtime Record now persists through Destiny Reset
+Text for locked Research Bars centered vertically
+Formatting issue where e.g. 1e26 would sometimes be displayed as 10e25 due to rounding problems

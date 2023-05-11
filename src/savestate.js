@@ -12,7 +12,7 @@ import * as eventsystem from './mails/MailEventSystem'
 import * as progresscalculation from './progresscalculation'
 
 export const majorversion = 1
-export const version = "1.06"
+export const version = "1.07"
 export const productive = true
 export var invitation = "efHyDkqGRZ"
 
@@ -1010,7 +1010,7 @@ export const saveReducer = (state, action)=>{
     case "performDestinyReset":
         state.destinyStars += 1
         state = {...structuredClone(newSave), calcTimeStamp: Date.now(), saveTimeStamp: Date.now(), settings:state.settings, shopFavorites:state.shopFavorites, mileStoneCount:state.mileStoneCount, destinyMileStoneCount:state.destinyMileStoneCount, allTimeEndings:state.allTimeEndings,
-            destinyStars:state.destinyStars, starLight:state.starLight, lightAdder:state.lightAdder, lightDoubler:state.lightDoubler, lightRaiser:state.lightRaiser, starConstellations:state.starConstellations, constellationCount:state.constellationCount, fileStartTimeStamp:state.fileStartTimeStamp, destinyStartTimeStamp: Date.now()};
+            destinyStars:state.destinyStars, starLight:state.starLight, lightAdder:state.lightAdder, lightDoubler:state.lightDoubler, lightRaiser:state.lightRaiser, starConstellations:state.starConstellations, constellationCount:state.constellationCount, destinyRecordMillis:state.destinyRecordMillis, fileStartTimeStamp:state.fileStartTimeStamp, destinyStartTimeStamp: Date.now()};
         state.mailsForCheck.push("Destiny")
         break;
     case "buyLightUpgrade":
