@@ -181,7 +181,11 @@ export default function OptionScreen({state, popup, updateState, setTotalClicks}
         </p>}
         {(state.destinyStars > 1 || state.progressionLayer > 0) && <p>
           {spaces()}<MultiOptionButton settingName="hotkeyAbortRun" statusList={["ON","OFF"]} state={state} updateState={updateState} setTotalClicks={setTotalClicks}
-            description="Abort Hotkey [C]" tooltip="Controls whether the C Key can be used to abort the current run" tooltipList={["Show popup","Do not show popup"]}/>
+            description="Abort Hotkey [C]" tooltip="Controls whether the C Key can be used to abort the current run" tooltipList={["Hotkey Enabled", "Hotkey Disabled"]}/>
+        </p>}
+        {(state.destinyStars > 1 || state.mailsCompleted["ResearchAll"] !== undefined) && <p>
+          {spaces()}<MultiOptionButton settingName="hotkeyResearchAll" statusList={["ON","OFF"]} state={state} updateState={updateState} setTotalClicks={setTotalClicks}
+            description="Research All Hotkey [R]" tooltip="Controls whether the R Key to start all available Research" tooltipList={["Hotkey Enabled", "Hotkey Disabled"]}/>
         </p>}
       </details>
 

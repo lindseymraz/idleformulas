@@ -68,7 +68,7 @@ export default function DestinyWelcomeTab({state, popup, updateState}) {
                 {state.destinyStars < 1 && <><h2>You finished the game!</h2><p>Claim this Destiny Star as a reward!</p><br/><button onClick={claimFirstStar}><b>CLAIM DESTINY STAR</b></button></>}
                 {state.destinyStars >= 1 && <>
                     <h2>Destiny Stars</h2>
-                    <p>You have {state.destinyStars} Destiny Star{state.destinyStars !== 1 && "s"}.<br/>They multiply the speed of the previous layers.<br/><br/>You can get Destiny Stars by replaying the game.</p>
+                    <p>You have {state.destinyStars} Destiny Star{state.destinyStars !== 1 && "s"}.<br/>They multiply the speed of the previous layers.<br/><br/>{state.destinyStars < 10 && state.progressionLayer >= 2 && <>Perform a Destiny Reset to receive another Destiny Star immediately.</>}{state.destinyStars < 10 && state.progressionLayer < 2 && <>Complete the True Ending again to unlock the next Destiny Reset</>}</p>
                     {state.progressionLayer >= 2 && <button onClick={performDestinyReset} className="fbutton" style={{ backgroundColor:"#FFFF88", fontWeight:"bold", width:"280px"}} ><b>{"CHANGE YOUR DESTINY"}</b></button>}
                     <br/><h2>Starlight</h2>
                     <h3>&lambda; = {formatNumber(Math.floor(state.starLight),state.settings.numberFormat,3)}</h3>

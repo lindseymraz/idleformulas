@@ -1,6 +1,7 @@
 import { getGlobalMultiplier } from '../savestate'
 import {secondsToHms, reverseGeometric} from '../utilities'
 
+
 export default function AlphaResearchBar({state, research, updateState}) {
     const startTime = state.researchStartTime[research.id]
     const researchLevel = state.researchLevel[research.id]
@@ -37,7 +38,7 @@ export default function AlphaResearchBar({state, research, updateState}) {
     if (researchLevel >= 2500) {
       return (
         <>
-        <div style={{position: "relative", color:"#000000", backgroundColor:"#ff6666", border:"2px solid", height:"25px",width:"80%", maxWidth:"320px"}}>
+        <div style={{position: "relative", marginBottom:"5px", color:"#000000", backgroundColor:"#ff6666", border:"2px solid", height:"25px",width:"80%", maxWidth:"320px"}}>
           <div style={{backgroundColor:"#ff6666", border:"0px", height:"25px", width:"100%"}}>
             <div style={{userSelect:"none",whiteSpace:"nowrap" ,lineHeight:"25px",position:"absolute", left:"50%", transform:"translateX(-50%)"}}><b>MAXXED</b></div>
           </div>
@@ -51,7 +52,7 @@ export default function AlphaResearchBar({state, research, updateState}) {
     } else {
       return (
         <>
-        <div onClick={clickResearchBar} style={{position: "relative", color:"#000000", backgroundColor:"#ffffff", border:"2px solid", height:"25px",width:"80%", maxWidth:"320px"}}>
+        <div onClick={clickResearchBar} style={{position: "relative", marginBottom:"5px", color:"#000000", backgroundColor:"#ffffff", border:"2px solid", height:"25px",width:"80%", maxWidth:"320px"}}>
           <div style={{backgroundColor:"#ff9999", border:"0px", height:"25px", width:progressBarWidth}}>
             <div style={{userSelect:"none",whiteSpace:"nowrap",lineHeight:"25px", position:"absolute", left:"50%", transform:"translateX(-50%)"}}><b>{isDone ? <>RESEARCH {research.id}{bulkAmount > 1 && <>&nbsp;(+{bulkAmount})</>}</> : secondsToHms(Math.ceil(remainingTime))}</b></div>
           </div>

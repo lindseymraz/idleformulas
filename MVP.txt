@@ -4,19 +4,25 @@
 
 ~~~~~~~~~~~MEDIUM~~~~~~~~~~~
 
-Research All Button unlocked via Mail, with hotkey R
+Initial Messages in Discord Channels
+Roll out new progression Channels
 
 ~~~~~~~~~~~~~LOW~~~~~~~~~~~~
+
+
 
 ~~~~~~~~~~~VERYLOW~~~~~~~~~~
 
 ============DONE=============
 
 Changes:
-Positions of Destiny Stars and Starlight swapped in Header Display
-Added alternative Method to Unlock Stones Tab with Milestone 11 (new Mail!)
+Added new QOL feature: Research All Button that can be unlocked via mails (Hotkey R in Options)
+Improved the text on how to obtain Destiny Stars
+Alternate academy reply if true ending is found before receiving the hint
+Added a quote to the Skipped Ending
+Added a bit of vertical space between Research Bars and its level
 
 Fixes:
-Best Playtime Record now persists through Destiny Reset
-Text for locked Research Bars centered vertically
-Formatting issue where e.g. 1e26 would sometimes be displayed as 10e25 due to rounding problems
+Mail "Just a small hint" now greys out after reading
+Auto Resetter and Rememberer Settings are now initialized on Destiny Reset
+Abort Button not visible anymore when "Complete Challenge" is available (it looked bad on mobile)

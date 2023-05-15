@@ -1,7 +1,12 @@
 import AlphaResearchBar from './AlphaResearchBar.js'
-import {differentialTargets, alphaTarget, getMaxxedResearchBonus} from '../savestate'
-import {formatNumber} from '../utilities'
-const researchDictonary = {
+import { getCumulResearchInfo } from './AlphaResearchHelper.js'
+import {getMaxxedResearchBonus} from '../savestate'
+import {formatNumber, secondsToHms} from '../utilities'
+
+const differentialTargets = [20e3,20e9,20e21,Infinity]
+const alphaTarget = 20e33
+
+export const researchDictonary = {
     "x": {
         id: "x",
         durationStart: differentialTargets[0] * 5,
@@ -65,10 +70,49 @@ const researchDictonary = {
 
 }
 
+export const researchList = ["x","x'","x''","x'''"]
+
 export default function AlphaResearchTab({state, updateState, setTotalClicks}) {
-return (
-    <div style={{marginLeft:"20px"}}>{<>
+    const cumulResearchInfo = getCumulResearchInfo(state,researchList)
+    const progressBarWidth = cumulResearchInfo.isDone ? "100%" : Math.min(100 * cumulResearchInfo.percentage,99).toFixed(2) + "%" //cumulResearchInfo.progressBarWidth.toFixed(0) + "%"
+    const bulkAmount = cumulResearchInfo.bulkAmount
+    const isDone = cumulResearchInfo.isDone
+    const remainingTime = cumulResearchInfo.remainingTime
+    const totalLevel = cumulResearchInfo.totalLevel
+    const allBlocked = cumulResearchInfo.allBlocked
+    const showResearchAllBar = (state.mailsCompleted["ResearchAll"] !== undefined)
+    const clickResearchAll = ()=>{
+        updateState({name: "researchAll"})
+    }
+    return (
+        <div style={{marginLeft:"20px"}}>{<>
         <h2>Research</h2>
+
+        {showResearchAllBar && allBlocked && totalLevel < 10000 && <>
+            <div style={{position: "relative", marginBottom:"5px", color:"#000000", backgroundColor:"#ffffff", border:"2px solid", height:"25px",width:"80%", maxWidth:"240px"}}>
+                <div style={{userSelect:"none",whiteSpace:"nowrap",lineHeight:"25px", position:"absolute", left:"50%", transform:"translateX(-50%)"}}><b>RESEARCH ALL</b>
+            </div></div>
+            <div>Total Level: {formatNumber(totalLevel, state.numberFormat, 2)}</div><br/><br/>
+        </>}
+
+        {showResearchAllBar && totalLevel >= 10000 && <>
+            <div style={{position: "relative", marginBottom:"5px", color:"#000000", backgroundColor:"#ff6666", border:"2px solid", height:"25px",width:"80%", maxWidth:"240px"}}>
+            <div style={{backgroundColor:"#ff6666", border:"0px", height:"25px", width:"100%"}}>
+                <div style={{userSelect:"none",whiteSpace:"nowrap" ,lineHeight:"25px",position:"absolute", left:"50%", transform:"translateX(-50%)"}}><b>ALL MAXXED</b></div>
+            </div>
+            </div>
+            <div>Total Level: {formatNumber(totalLevel, state.numberFormat, 2)}</div><br/><br/>
+        </>}
+
+        {showResearchAllBar && !allBlocked && totalLevel < 10000 && <>
+            <div onClick={clickResearchAll} style={{position: "relative", marginBottom:"5px", color:"#000000", backgroundColor:"#ffffff", border:"2px solid", height:"25px",width:"80%", maxWidth:"240px"}}>
+            <div style={{backgroundColor:"#ff9999", border:"0px", height:"25px", width:progressBarWidth}}>
+                <div style={{userSelect:"none",whiteSpace:"nowrap",lineHeight:"25px", position:"absolute", left:"50%", transform:"translateX(-50%)"}}><b>{isDone ? <>RESEARCH ALL{bulkAmount > 0 && <>&nbsp;(+{bulkAmount})</>}</> : secondsToHms(Math.ceil(remainingTime))}</b></div>
+            </div>
+            </div>
+            <div>Total Level: {formatNumber(totalLevel, state.numberFormat, 2)}</div><br/><br/>
+        </>}
+
         Research speed is boosted by your highscores but higher levels take longer.
         {getMaxxedResearchBonus(state).count > 0 && <><br/>Every maxxed Research Bar doubles your Formula Efficiency (x{getMaxxedResearchBonus(state).bonus}).</>}
         <br/><br/><AlphaResearchBar key="x" research={researchDictonary["x"]} state={state} updateState={updateState}/>

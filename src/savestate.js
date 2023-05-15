@@ -10,9 +10,10 @@ import {calcStoneResultForX} from './alpha/AlphaStonesTab'
 import {startingStones, stoneTable, stoneList} from './alpha/AlphaStoneDictionary'
 import * as eventsystem from './mails/MailEventSystem'
 import * as progresscalculation from './progresscalculation'
+import { checkResearch, researchList } from "./alpha/AlphaResearchHelper";
 
 export const majorversion = 1
-export const version = "1.07"
+export const version = "1.08"
 export const productive = true
 export var invitation = "efHyDkqGRZ"
 
@@ -142,6 +143,7 @@ export const newSave = {
         hotkeyAlphaReset: "OFF",
         hotkeyToggleAuto: "OFF",
         hotkeyAbortRun: "OFF",
+        hotkeyResearchAll: "OFF",
     }
 }
 
@@ -458,6 +460,14 @@ export const saveReducer = (state, action)=>{
     switch(action.name){
     case "idle":
         if (action.playTime === state.lastPlayTime) break
+
+        //Mitigation Research All Button for savefiles created before v1.08
+        if (state.version !== version && !state.mitigation108) {
+            state.mitigation108 = true
+            if (state.mailsCompleted["Challenges"] !== undefined) {
+                state.mailsForCheck.push("ResearchAllIdea")
+            }
+        }
 
         state.lastPlayTime = action.playTime
         const timeStamp = Date.now()
@@ -949,6 +959,17 @@ export const saveReducer = (state, action)=>{
         state = updateProductionBonus(state)
         state = updateFormulaEfficiency(state)
         break;
+    case "researchAll":
+        for (const researchName of researchList) {
+            const researchInfo = checkResearch(state,researchName)
+            if (!researchInfo.isBlocked && researchInfo.isDone) {
+                state.researchStartTime[researchName] = Date.now()
+                state.researchLevel[researchName] = Math.min(2500, (state.researchLevel[researchName] || 0) + researchInfo.bulkAmount)
+            }
+        }
+        state = updateProductionBonus(state)
+        state = updateFormulaEfficiency(state)
+        break;
     case "upgradeApplierRate":
         state.alpha -= action.cost
         state.autoApplyLevel = action.level
@@ -1011,6 +1032,10 @@ export const saveReducer = (state, action)=>{
         state.destinyStars += 1
         state = {...structuredClone(newSave), calcTimeStamp: Date.now(), saveTimeStamp: Date.now(), settings:state.settings, shopFavorites:state.shopFavorites, mileStoneCount:state.mileStoneCount, destinyMileStoneCount:state.destinyMileStoneCount, allTimeEndings:state.allTimeEndings,
             destinyStars:state.destinyStars, starLight:state.starLight, lightAdder:state.lightAdder, lightDoubler:state.lightDoubler, lightRaiser:state.lightRaiser, starConstellations:state.starConstellations, constellationCount:state.constellationCount, destinyRecordMillis:state.destinyRecordMillis, fileStartTimeStamp:state.fileStartTimeStamp, destinyStartTimeStamp: Date.now()};
+        state.settings.autoResetterS = "OFF"
+        state.settings.autoResetterA = "OFF"
+        state.settings.alphaThreshold = "MINIMUM"
+        state.settings.autoRemembererActive = "ON"
         state.mailsForCheck.push("Destiny")
         break;
     case "buyLightUpgrade":

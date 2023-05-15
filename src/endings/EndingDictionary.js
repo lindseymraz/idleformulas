@@ -472,6 +472,7 @@ export const endingList = {
         title: "You are Speedrunning!",
         durationSeconds: 3,
         headerText: <>~Skipped Ending~</>,
+        quoteText: <>&ldquo;With great power comes great responsibility.&rdquo;</>,
         teaseHeaderText: <>~??????? ??????~</>,
         storyText: <>Who cares about the story anyway.<br/>You just finished World Formula Any%!</>,
         final:true,

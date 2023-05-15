@@ -49,7 +49,10 @@ export default function KeyBoardHandler({state, updateState, popup}) {
         updateState({name:"alphaReset", isAbort: true})
     }
 
-
+    const hotkeyResearchAll = (keyName, e, handle) => {
+        if (state.progressionLayer < 1 || state.mailsCompleted["ResearchAll"] === undefined) return
+        updateState({name:"researchAll"})
+    }
 
     return <>
         <Hotkeys keyName="1,2,3,4,5,num_1,num_2,num_3,num_4,num_5" disabled={state.settings.hotkeyApplyFormula === "OFF"} onKeyDown={hotkeyApplyFormulaDown} onKeyUp={hotkeyApplyFormulaUp} allowRepeat={true}/>
@@ -58,6 +61,7 @@ export default function KeyBoardHandler({state, updateState, popup}) {
         <Hotkeys keyName="a" disabled={state.settings.hotkeyAlphaReset === "OFF"} onKeyDown={hotkeyAlphaReset}/>
         <Hotkeys keyName="t" disabled={state.settings.hotkeyToggleAuto === "OFF"} onKeyDown={hotkeyToggleAuto}/>
         <Hotkeys keyName="c" disabled={state.settings.hotkeyAbortRun === "OFF"} onKeyDown={hotkeyAbortRun}/>
+        <Hotkeys keyName="r" disabled={state.settings.hotkeyResearchAll === "OFF"} onKeyDown={hotkeyResearchAll}/>
     </>
 
 
