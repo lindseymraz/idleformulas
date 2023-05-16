@@ -960,15 +960,22 @@ export const saveReducer = (state, action)=>{
         state = updateFormulaEfficiency(state)
         break;
     case "researchAll":
+        let totalGains = 0
         for (const researchName of researchList) {
             const researchInfo = checkResearch(state,researchName)
             if (!researchInfo.isBlocked && researchInfo.isDone) {
+                const previousLevel = state.researchLevel[researchName]
                 state.researchStartTime[researchName] = Date.now()
                 state.researchLevel[researchName] = Math.min(2500, (state.researchLevel[researchName] || 0) + researchInfo.bulkAmount)
+                totalGains += state.researchLevel[researchName] - previousLevel
             }
         }
         state = updateProductionBonus(state)
         state = updateFormulaEfficiency(state)
+        if(action.showNotification && totalGains === 1)
+            notify.success("Research Successful", "1 Research Level Gained")
+        else if(action.showNotification && totalGains > 1)
+            notify.success("Research Successful", totalGains.toFixed(0) + " Research Levels Gained")
         break;
     case "upgradeApplierRate":
         state.alpha -= action.cost

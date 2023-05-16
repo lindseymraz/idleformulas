@@ -51,7 +51,8 @@ export default function KeyBoardHandler({state, updateState, popup}) {
 
     const hotkeyResearchAll = (keyName, e, handle) => {
         if (state.progressionLayer < 1 || state.mailsCompleted["ResearchAll"] === undefined) return
-        updateState({name:"researchAll"})
+        const showNotification = (state.selectedTabKey !== "AlphaScreen" || state.selectedAlphaTabKey !== "AlphaResearchTab")
+        updateState({name:"researchAll", showNotification: showNotification})
     }
 
     return <>

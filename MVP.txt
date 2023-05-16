@@ -17,6 +17,7 @@ Roll out new progression Channels
 
 Changes:
 Added new QOL feature: Research All Button that can be unlocked via mails (Hotkey R in Options)
+Notification when successfully researching via Hotkey on different tab
 Improved the text on how to obtain Destiny Stars
 Alternate academy reply if true ending is found before receiving the hint
 Added a quote to the Skipped Ending
