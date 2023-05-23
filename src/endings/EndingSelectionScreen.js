@@ -20,7 +20,7 @@ export default function EndingSelectionScreen({state, popup, updateState}) {
             {showTrueHint && !showTrueEnding && <><button style={{color:"black"}} disabled={true}><b>? ???? ???? ?? ???? ??????? ?? ???</b></button><br/><br/></>}
             {showTrueEnding && <><button onClick={startTrueEnding}><b>I just want to make NUMBERS GO UP!</b></button><br/><br/></>}
             <button onClick={()=>startEnding("skipped")}>Nothing</button><br/><br/>
-            {showTrueHint && !showTrueEnding && <p>Get here with x, x', x'' and x''' all being Infinity to chose the true ending.</p>}
+            {showTrueHint && !showTrueEnding && <p>Get here with x, x', x'' and x''' all being Infinity to choose the true ending.</p>}
             </>}
         </div>)
 }

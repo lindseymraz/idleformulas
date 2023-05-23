@@ -2,62 +2,62 @@ export const starConstellations = {
     aries: {
         id: "aries",
         title: "Aries",
-        symbol: <>&#9800;&#xFE0E;</>,
+        symbol: <>a</>,
     },
     taurus: {
         id: "taurus",
         title: "Taurus",
-        symbol: <>&#9801;&#xFE0E;</>,
+        symbol: <>b</>,
     },
     gemini: {
         id: "gemini",
         title: "Gemini",
-        symbol: <>&#9802;&#xFE0E;</>,
+        symbol: <>c</>,
     },
     cancer: {
         id: "cancer",
         title: "Cancer",
-        symbol: <>&#9803;&#xFE0E;</>,
+        symbol: <>d</>,
     },
     leo: {
         id: "leo",
         title: "Leo",
-        symbol: <>&#9804;&#xFE0E;</>,
+        symbol: <>e</>,
     },
     virgo: {
         id: "virgo",
         title: "Virgo",
-        symbol: <>&#9805;&#xFE0E;</>,
+        symbol: <>f</>,
     },
     libra: {
         id: "libra",
         title: "Libra",
-        symbol: <>&#9806;&#xFE0E;</>,
+        symbol: <>g</>,
     },
     scorpius: {
         id: "scorpius",
         title: "Scorpius",
-        symbol: <>&#9807;&#xFE0E;</>,
+        symbol: <>h</>,
     },
     sagittarius: {
         id: "sagittarius",
         title: "Sagittarius",
-        symbol: <>&#9808;&#xFE0E;</>,
+        symbol: <>i</>,
     },
     capricornus: {
         id: "capricornus",
         title: "Capricornus",
-        symbol: <>&#9809;&#xFE0E;</>,
+        symbol: <>j</>,
     },
     aquarius: {
         id: "aquarius",
         title: "Aquarius",
-        symbol: <>&#9810;&#xFE0E;</>,
+        symbol: <>k</>,
     },
     pisces: {
         id: "pisces",
         title: "Pisces",
-        symbol: <>&#9811;&#xFE0E;</>,
+        symbol: <>l</>,
     },
 }
 

@@ -1,4 +1,5 @@
 import { constellationPrices } from "./DestinyConstellationDictionary"
+import '../App.css';
 
 export default function DestinyConstellationButton({state, popup, constellation, updateState}) {
     
@@ -24,8 +25,8 @@ export default function DestinyConstellationButton({state, popup, constellation,
         cursor: state.starConstellations[constellation.id] ? undefined : "pointer",
     }
 
-    return (
-        <button onClick={clickConstellation} title={constellation.title} style={buttonStyle} disabled={disabled}>{constellation.symbol}</button>
-    )
+    return (<>
+        <button class="astrodot" onClick={clickConstellation} title={constellation.title} style={buttonStyle} disabled={disabled}>{constellation.symbol}</button>
+        </>)
 
 }

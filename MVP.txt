@@ -4,9 +4,6 @@
 
 ~~~~~~~~~~~MEDIUM~~~~~~~~~~~
 
-Initial Messages in Discord Channels
-Roll out new progression Channels
-
 ~~~~~~~~~~~~~LOW~~~~~~~~~~~~
 
 
@@ -16,14 +13,11 @@ Roll out new progression Channels
 ============DONE=============
 
 Changes:
-Added new QOL feature: Research All Button that can be unlocked via mails (Hotkey R in Options)
-Notification when successfully researching via Hotkey on different tab
-Improved the text on how to obtain Destiny Stars
-Alternate academy reply if true ending is found before receiving the hint
-Added a quote to the Skipped Ending
-Added a bit of vertical space between Research Bars and its level
+Use fixed font for Star Constellations regardless of browser
+Added Credits for used packages/assets to readme in Github
 
 Fixes:
-Mail "Just a small hint" now greys out after reading
-Auto Resetter and Rememberer Settings are now initialized on Destiny Reset
-Abort Button not visible anymore when "Complete Challenge" is available (it looked bad on mobile)
+Maybe (?) fixed problem with holding formulas after inactive period on Android/Firefox
+Record Playtime should stay after Destiny Reset
+Fixed spelling error: choose -> chose
+Research all bar progress depends on bar with shortest remaining time instead of bar with biggest progress percentage

@@ -13,7 +13,7 @@ export const getCumulResearchInfo = (state,researchList)=>{
         cumul.totalLevel += info.researchLevel
         cumul.allBlocked &&= info.isBlocked
         if (!info.isBlocked) {
-          cumul.percentage = Math.max(cumul.percentage, info.percentage)
+          cumul.percentage = info.remainingTime <= cumul.remainingTime ? info.percentage : cumul.percentage
           cumul.bulkAmount += info.bulkAmount
           cumul.isDone ||= info.isDone
           cumul.remainingTime = Math.min(cumul.remainingTime,info.remainingTime)

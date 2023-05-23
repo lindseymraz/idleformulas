@@ -649,7 +649,6 @@ export const mailDictionary = {
         id: "SoundsAwesome",
         title: "Re: That sounds awesome!",
         content: <>Glad you like my idea! The Research All feature is a lot of work, but I'll start coding right now and let you know when it's done. So stay tuned!</>,
-        responses: [<>That sounds awesome!</>,<>Do whatever you like.</>],
         sender: "Dev",
         check: (state)=>(true),
         delay: 600,

@@ -62,3 +62,13 @@ footer {
     display: table;
     clear: both;
 }
+
+.astrodot {
+  font-family: 'AstroDot';
+  /* filter: drop-shadow(3px 3px 2px yellow) drop-shadow(-2px -2px 2px yellow) grayscale(100%) contrast(400%) sepia(100%) saturate(1000%) hue-rotate(10deg); */
+}
+
+@font-face {
+  font-family: 'AstroDot';
+  src: url("./AstroDotBasic.ttf");
+}

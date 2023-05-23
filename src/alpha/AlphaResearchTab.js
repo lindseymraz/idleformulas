@@ -89,14 +89,14 @@ export default function AlphaResearchTab({state, updateState, setTotalClicks}) {
         <h2>Research</h2>
 
         {showResearchAllBar && allBlocked && totalLevel < 10000 && <>
-            <div style={{position: "relative", marginBottom:"5px", color:"#000000", backgroundColor:"#ffffff", border:"2px solid", height:"25px",width:"80%", maxWidth:"240px"}}>
+            <div style={{position: "relative", marginBottom:"5px", color:"#000000", backgroundColor:"#ffffff", border:"2px solid", height:"25px",width:"80%", maxWidth:"200px"}}>
                 <div style={{userSelect:"none",whiteSpace:"nowrap",lineHeight:"25px", position:"absolute", left:"50%", transform:"translateX(-50%)"}}><b>RESEARCH ALL</b>
             </div></div>
             <div>Total Level: {formatNumber(totalLevel, state.numberFormat, 2)}</div><br/><br/>
         </>}
 
         {showResearchAllBar && totalLevel >= 10000 && <>
-            <div style={{position: "relative", marginBottom:"5px", color:"#000000", backgroundColor:"#ff6666", border:"2px solid", height:"25px",width:"80%", maxWidth:"240px"}}>
+            <div style={{position: "relative", marginBottom:"5px", color:"#000000", backgroundColor:"#ff6666", border:"2px solid", height:"25px",width:"80%", maxWidth:"200px"}}>
             <div style={{backgroundColor:"#ff6666", border:"0px", height:"25px", width:"100%"}}>
                 <div style={{userSelect:"none",whiteSpace:"nowrap" ,lineHeight:"25px",position:"absolute", left:"50%", transform:"translateX(-50%)"}}><b>ALL MAXXED</b></div>
             </div>
@@ -105,7 +105,7 @@ export default function AlphaResearchTab({state, updateState, setTotalClicks}) {
         </>}
 
         {showResearchAllBar && !allBlocked && totalLevel < 10000 && <>
-            <div onClick={clickResearchAll} style={{position: "relative", marginBottom:"5px", color:"#000000", backgroundColor:"#ffffff", border:"2px solid", height:"25px",width:"80%", maxWidth:"240px"}}>
+            <div onClick={clickResearchAll} style={{position: "relative", marginBottom:"5px", color:"#000000", backgroundColor:"#ffffff", border:"2px solid", height:"25px",width:"80%", maxWidth:"200px"}}>
             <div style={{backgroundColor:"#ff9999", border:"0px", height:"25px", width:progressBarWidth}}>
                 <div style={{userSelect:"none",whiteSpace:"nowrap",lineHeight:"25px", position:"absolute", left:"50%", transform:"translateX(-50%)"}}><b>{isDone ? <>RESEARCH ALL{bulkAmount > 0 && <>&nbsp;(+{bulkAmount})</>}</> : secondsToHms(Math.ceil(remainingTime))}</b></div>
             </div>

@@ -13,7 +13,7 @@ import * as progresscalculation from './progresscalculation'
 import { checkResearch, researchList } from "./alpha/AlphaResearchHelper";
 
 export const majorversion = 1
-export const version = "1.08"
+export const version = "1.09"
 export const productive = true
 export var invitation = "efHyDkqGRZ"
 
@@ -67,6 +67,7 @@ export const newSave = {
     destinyEndTimeStamp: -1,
     destinyRecordMillis: 1e100,
     millisSinceAutoApply: 0,
+    millisSinceHoldEvent: 0,
     millisSinceCountdown: 0,
     mileStoneCount: 0,
     destinyMileStoneCount: 0,
@@ -542,8 +543,9 @@ export const saveReducer = (state, action)=>{
                 state.holdAction.temp--
             if(state.holdAction.delay > 0) {
                 state.holdAction.delay--
-            } else {
-            const formula = formulaList[state.holdAction.formulaName]
+            } else if (state.millisSinceHoldEvent + deltaMilliSeconds >= 80){
+                state.millisSinceHoldEvent += deltaMilliSeconds
+                const formula = formulaList[state.holdAction.formulaName]
                 let xBeforeHold = state.xValue[formula.targetLevel]
                 const isApplied = progresscalculation.applyFormulaToState(state, formula, false, false, true)
                 if (!isApplied) {
@@ -557,6 +559,10 @@ export const saveReducer = (state, action)=>{
                     recoverValue = state.xValue[formula.targetLevel]
                     recoverTier = formula.targetLevel
                 }
+
+                state.millisSinceHoldEvent = Math.min(100, state.millisSinceHoldEvent - 100) //Buffer up to 100 ms
+            } else {
+                state.millisSinceHoldEvent += deltaMilliSeconds
             }
 
             if (state.holdAction?.temp === 0)
@@ -565,7 +571,7 @@ export const saveReducer = (state, action)=>{
 
         //Auto Appliers
         state.millisSinceAutoApply += deltaMilliSeconds
-        if (state.alphaUpgrades.AAPP && state.millisSinceAutoApply > 1000 / state.autoApplyRate){
+        if (state.alphaUpgrades.AAPP && state.millisSinceAutoApply > 800 / state.autoApplyRate){
             for (let i = 0; i<5; i++) {
                 if (state.autoApply[i] && state.myFormulas.length > i) {
                     progresscalculation.applyFormulaToState(state,formulaList[state.myFormulas[i]],false, true, true)
@@ -1018,7 +1024,7 @@ export const saveReducer = (state, action)=>{
             state.progressionLayer = 2
             state.destinyEndTimeStamp = Date.now()
             if (state.destinyStartTimeStamp > 0)
-                state.destinyRecordMillis = state.destinyEndTimeStamp - state.destinyStartTimeStamp
+                state.destinyRecordMillis = Math.min(state.destinyRecordMillis, state.destinyEndTimeStamp - state.destinyStartTimeStamp)
             state.mailsForCheck.push("Destiny")
             notify.success("DESTINY", "You finished the game!")
             performAlphaReset(state)
