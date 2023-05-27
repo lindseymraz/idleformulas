@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/idleformulas/static/css/main.2c89c159.css",
-    "main.js": "/idleformulas/static/js/main.e7818682.js",
+    "main.js": "/idleformulas/static/js/main.932bd344.js",
     "static/media/AstroDotBasic.ttf": "/idleformulas/static/media/AstroDotBasic.1e9941d39ecdb0a55023.ttf",
     "index.html": "/idleformulas/index.html"
   },
   "entrypoints": [
     "static/css/main.2c89c159.css",
-    "static/js/main.e7818682.js"
+    "static/js/main.932bd344.js"
   ]
 }
