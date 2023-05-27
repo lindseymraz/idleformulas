@@ -470,15 +470,16 @@ export const mailDictionary = {
         sender: "Estelle",
         check: (state)=>(state.constellationCount >= 12),
         delay: 0,
-        afterReceive: ["Constellation"],
+        afterReceive: ["Eternal"],
         silent: true
     },
     "Eternal":{
         id: "Eternal",
         title: "The eternal night is over",
-        content: <>This is absolutely incredible. With an Infinity of Starlight, the eternal night is finally coming to an end, and the Age of Illumination is about to begin. However, the dawn of this new era means that it is time for us to part ways. And that it is time for me to get some rest. But I will hold to the memories of our time together dearly, and take them with me, whereever fate may take me!<br/><br/>Farewell, and thank you for everything!<br/><br/>Estelle</>,
+        content: <>This is absolutely incredible. With an Infinity of Starlight, replenishing itself quickly should darkness ever arise again, the eternal night is finally coming to an end, and the Age of Illumination is about to begin. However, the dawn of this new era means that it is time for us to part ways. And that it is time for me to get some rest. But I will hold to the memories of our time together dearly, and take them with me, whereever fate may take me!<br/><br/>Farewell, and thank you for everything!<br/><br/>Estelle</>,
         sender: "Estelle",
-        check: (state)=>(state.starLight >= Infinity && state.lightAdder >= 1000 && state.lightDoubler >= 1000 && state.lightRaiser >= 1000),
+        check: (state)=>(state.starlightRecordMillis < 180000 && state.starLight >= Infinity && state.lightAdder >= 1000 && state.lightDoubler >= 1000 && state.lightRaiser >= 1000),
+        delay: 0,
         silent: true,
     },
 

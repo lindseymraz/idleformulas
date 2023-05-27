@@ -15,6 +15,7 @@ const starlightDictionary = {
         className: undefined,
         hideAmount: true,
         useDefaultStyle: true,
+        resetsForAuto: Infinity,
     },
     adder: {
         id: "adder",
@@ -25,6 +26,7 @@ const starlightDictionary = {
         costMultiplier: 1.15,
         maxAmount: 1000,
         className: "fbutton",
+        resetsForAuto: 1,
     },
     doubler: {
         id: "doubler",
@@ -35,6 +37,7 @@ const starlightDictionary = {
         costMultiplier: 8,
         maxAmount: 1000,
         className: "fbutton",
+        resetsForAuto: 2,
     },
     raiser: {
         id: "raiser",
@@ -45,7 +48,26 @@ const starlightDictionary = {
         costMultiplier: 1000,
         maxAmount: 1000,
         className: "fbutton",
+        resetsForAuto: 3,
     },
+}
+
+export const autoBuyStarlightUpgrades = (state) => {
+    let upgradeList
+    if (state.starLightInfiniteResetCount === 0)
+        upgradeList = []
+    else if (state.starLightInfiniteResetCount === 1)
+        upgradeList = ["adder"]
+    else if (state.starLightInfiniteResetCount === 2)
+        upgradeList = ["adder","doubler"]
+    else if (state.starLightInfiniteResetCount >= 3)
+        upgradeList = ["adder","doubler","raiser"]
+    for (const upgradeName of upgradeList) {
+        const upgrade = starlightDictionary[upgradeName]
+        const actualCost = Math.floor(upgrade.costBase * Math.pow(upgrade.costMultiplier, state[upgrade.currency]) * (state.constellationCount < 12 ? Math.pow(0.5, state.constellationCount) : 1/5000) )
+        if (state.starLight >= actualCost)
+            state[upgrade.currency] = Math.min(state[upgrade.currency] + 1, 1000)
+    }
 }
 
 export default function DestinyWelcomeTab({state, popup, updateState}) {
@@ -58,9 +80,16 @@ export default function DestinyWelcomeTab({state, popup, updateState}) {
             updateState({name:"performDestinyReset"})
         })
     }
+    const resetStarlight = ()=>{
+        if (state.starLight !== Infinity)
+            return
+        popup.confirm("This will reset your Starlight and Starlight upgrades, but you will keep all Constellations.",()=>{
+            updateState({name:"completeConstellation", constellation: undefined})
+        })
+    }
 
     const adder = starlightDictionary["adder"]
-    const adderCost = Math.floor(adder.costBase*Math.pow(adder.costMultiplier, state[adder.currency]) * (state.constellationCount < 12 ? Math.pow(0.5, state.constellationCount) : 1/5000))
+    const adderCost = Math.floor(adder.costBase * Math.pow(adder.costMultiplier, state[adder.currency]) * (state.constellationCount < 12 ? Math.pow(0.5, state.constellationCount) : 1/5000))
 
     return (
         <div style={{marginLeft:"20px"}}>
@@ -85,6 +114,14 @@ export default function DestinyWelcomeTab({state, popup, updateState}) {
                     <DestinyStarlightButton upgrade={starlightDictionary["raiser"]} state={state} updateState={updateState} popup={popup}/><br/>
                     {getStarLightRate(state) === 0 && state.starLight < adderCost && <><DestinyStarlightButton upgrade={starlightDictionary["single"]} state={state} updateState={updateState} popup={popup}/><br/></>}
                     {state.lightRaiser > 0 && state.destinyStars <= 1 && <b>!!! Luminous Moons do nothing unless &#9733; &ge; 2 !!!<br/></b>}
+                    {(state.starLight === Infinity || state.starLightInfiniteResetCount > 0) && <><button onClick={resetStarlight} disabled={state.starLight !== Infinity} title="Reset Starlight and Starlight Upgrades">Reset Starlight</button>&nbsp;&nbsp;
+                        {state.starLight !== Infinity && <>Need: &lambda;=Infinity</>}
+                        {state.starLightInfiniteResetCount === 0 && <>Unlocks Auto Astral Glances!</>}
+                        {state.starLightInfiniteResetCount === 1 && <>Unlocks Auto Shooting Stars!</>}
+                        {state.starLightInfiniteResetCount === 2 && <>Unlocks Auto Luminous Moons!</>}
+                        {state.starLightInfiniteResetCount >=3 && state.starlightRecordMillis > 180000 && <>Get &lambda;=Infinity within 3 minutes</>}
+                        {state.starLightInfiniteResetCount >=3 && state.starlightRecordMillis < 180000 && !state.mailsReceived["Eternal"] && <>Max out all Starlight Upgrades</>}
+                    </>}
                     {/* {getStarLightRate(state) < 20 && <><button onClick={()=>updateState({name:"buyLightUpgrade", currency:"starLight", cost:0})}>Gaze at the night sky</button><br/><br/></>} */}
                     <h2>Star Constellations</h2>
                     {state.constellationCount < 12 ? <>Fill the entire night sky with Starlight to complete a Star Constellation.<br/><br/>{state.constellationCount > 0 && <>Each Constellation halves the prices of Starlight Upgrades and increases the Starlight cap tenfold.<br/></>}</> : <>All Star Constellations are complete. Congratulations!<br/><br/>The prices of Starlight Upgrades are divided by 5000 and the Starlight cap is removed entirely.<br/></>}
@@ -96,12 +133,17 @@ export default function DestinyWelcomeTab({state, popup, updateState}) {
 }
 
 function DestinyStarlightButton({state, updateState, upgrade, popup}) {
+    const actualCost = Math.floor(upgrade.costBase * Math.pow(upgrade.costMultiplier, state[upgrade.currency]) * (state.constellationCount < 12 ? Math.pow(0.5, state.constellationCount) : 1/5000) )
+    const hasAuto = (state.starLightInfiniteResetCount >= upgrade.resetsForAuto)
+
     const buyLight = (currency,cost)=>{
-        if (state.starLight < cost || isMaxxed)
+        if (hasAuto && !isMaxxed)
+            popup.alert("Don't stress it. Automation takes care of buying this for you!")
+        if (hasAuto || state.starLight < cost || isMaxxed)
             return
         if (!state[currency])
             popup.alert(upgrade.description)
-        updateState({name:"buyLightUpgrade", currency:currency, cost:cost})
+        updateState({name:"buyLightUpgrade", currency:currency, cost: cost})
     }
     const isMaxxed = state[upgrade.currency] >= upgrade.maxAmount
     const buttonStyle={
@@ -120,8 +162,6 @@ function DestinyStarlightButton({state, updateState, upgrade, popup}) {
         display: "inline-block",
         userSelect: "none",
     }
-    //const buttonStyle = {width: "200px", backgroundColor: isMaxxed ? "#ffff00" : "#ffffff", fontWeight: "bolder"}
-    const actualCost = Math.floor(upgrade.costBase*Math.pow(upgrade.costMultiplier, state[upgrade.currency]) * (state.constellationCount < 12 ? Math.pow(0.5, state.constellationCount) : 1/5000))
-    return <><div title={upgrade.description} className="fbutton" style={buttonStyle} onClick={()=>buyLight(upgrade.currency, actualCost)} disabled={isMaxxed || state.starLight < actualCost}>{upgrade.title}{!upgrade.hideAmount && <>&nbsp;({state[upgrade.currency]})</>}</div>{state[upgrade.currency] < 1000 && actualCost > 0 && <>&nbsp;&nbsp;Cost: &lambda;={formatNumber(actualCost,state.settings.numberFormat)}</>}<br/></>
-                    
+
+    return <><div title={upgrade.description} className="fbutton" style={buttonStyle} onClick={()=>buyLight(upgrade.currency, actualCost)} disabled={isMaxxed || state.starLight < actualCost}>{upgrade.title}{!upgrade.hideAmount && <>&nbsp;({state[upgrade.currency]})</>}</div>{state[upgrade.currency] < 1000 && actualCost > 0 && <>&nbsp;&nbsp;{hasAuto ? <>Need</>:<>Cost</>}: &lambda;={formatNumber(actualCost,state.settings.numberFormat)}</>}<br/></>
 }

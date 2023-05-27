@@ -26,7 +26,7 @@ export default function DestinyConstellationButton({state, popup, constellation,
     }
 
     return (<>
-        <button class="astrodot" onClick={clickConstellation} title={constellation.title} style={buttonStyle} disabled={disabled}>{constellation.symbol}</button>
+        <button className="astrodot" onClick={clickConstellation} title={constellation.title} style={buttonStyle} disabled={disabled}>{constellation.symbol}</button>
         </>)
 
 }

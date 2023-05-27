@@ -11,9 +11,10 @@ import {startingStones, stoneTable, stoneList} from './alpha/AlphaStoneDictionar
 import * as eventsystem from './mails/MailEventSystem'
 import * as progresscalculation from './progresscalculation'
 import { checkResearch, researchList } from "./alpha/AlphaResearchHelper";
+import { autoBuyStarlightUpgrades } from "./destiny/DestinyWelcomeTab";
 
 export const majorversion = 1
-export const version = "1.09"
+export const version = "1.10"
 export const productive = true
 export var invitation = "efHyDkqGRZ"
 
@@ -66,9 +67,14 @@ export const newSave = {
     destinyStartTimeStamp: -1,
     destinyEndTimeStamp: -1,
     destinyRecordMillis: 1e100,
+    starlightStartTimeStamp: -1,
+    starlightEndTimeStamp: -1,
+    starlightRecordMillis: 1e100,
+    starLightInfiniteResetCount: 0,
     millisSinceAutoApply: 0,
     millisSinceHoldEvent: 0,
     millisSinceCountdown: 0,
+    millisSinceDestinyAuto: 0,
     mileStoneCount: 0,
     destinyMileStoneCount: 0,
     holdAction: null,
@@ -693,6 +699,17 @@ export const saveReducer = (state, action)=>{
 
         //Generate Starlight for Destiny Layer
         progresscalculation.generateStarLight(state, deltaMilliSeconds)
+        if (state.starlightStartTimeStamp > 0 && state.starlightEndTimeStamp < 0 && state.starLight === Infinity){
+            state.starlightEndTimeStamp = Date.now()
+            state.starlightRecordMillis = Math.min(state.starlightRecordMillis, state.starlightEndTimeStamp - state.starlightStartTimeStamp)
+        }
+
+        //Destiny Automation
+        state.millisSinceDestinyAuto += deltaMilliSeconds
+        if (state.millisSinceDestinyAuto > 100) {
+            autoBuyStarlightUpgrades(state)
+            state.millisSinceDestinyAuto = Math.min(state.millisSinceDestinyAuto - 100, 100)
+        }
 
         //Estimate x per Second
         if (state.progressionLayer > 0 || state.destinyStars > 1) {
@@ -1044,7 +1061,8 @@ export const saveReducer = (state, action)=>{
     case "performDestinyReset":
         state.destinyStars += 1
         state = {...structuredClone(newSave), calcTimeStamp: Date.now(), saveTimeStamp: Date.now(), settings:state.settings, shopFavorites:state.shopFavorites, mileStoneCount:state.mileStoneCount, destinyMileStoneCount:state.destinyMileStoneCount, allTimeEndings:state.allTimeEndings,
-            destinyStars:state.destinyStars, starLight:state.starLight, lightAdder:state.lightAdder, lightDoubler:state.lightDoubler, lightRaiser:state.lightRaiser, starConstellations:state.starConstellations, constellationCount:state.constellationCount, destinyRecordMillis:state.destinyRecordMillis, fileStartTimeStamp:state.fileStartTimeStamp, destinyStartTimeStamp: Date.now()};
+            destinyStars:state.destinyStars, starLight:state.starLight, lightAdder:state.lightAdder, lightDoubler:state.lightDoubler, lightRaiser:state.lightRaiser, starConstellations:state.starConstellations, constellationCount:state.constellationCount, destinyRecordMillis:state.destinyRecordMillis, fileStartTimeStamp:state.fileStartTimeStamp, destinyStartTimeStamp: Date.now(),
+            starlightStartTimeStamp: state.starlightStartTimeStamp, starlightEndTimeStamp:state.starlightEndTimeStamp, starlightRecordMillis:state.starlightRecordMillis, starLightInfiniteResetCount:state.starLightInfiniteResetCount};
         state.settings.autoResetterS = "OFF"
         state.settings.autoResetterA = "OFF"
         state.settings.alphaThreshold = "MINIMUM"
@@ -1058,12 +1076,18 @@ export const saveReducer = (state, action)=>{
             
         break;
     case "completeConstellation":
-        state.constellationCount += 1
-        state.starConstellations[action.constellation.id] = true
+        if (action.constellation) {
+            state.constellationCount += 1
+            state.starConstellations[action.constellation.id] = true
+        } else if (state.starLight === Infinity) {
+            state.starLightInfiniteResetCount++
+        }
         state.starLight = 0
         state.lightAdder = 0
         state.lightDoubler = 0
         state.lightRaiser = 0
+        state.starlightStartTimeStamp = Date.now()
+        state.starlightEndTimeStamp = -1
         break;
     case "passTime":
         state.passedTime += action.time

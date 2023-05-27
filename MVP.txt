@@ -6,18 +6,13 @@
 
 ~~~~~~~~~~~~~LOW~~~~~~~~~~~~
 
-
-
 ~~~~~~~~~~~VERYLOW~~~~~~~~~~
 
 ============DONE=============
 
 Changes:
-Use fixed font for Star Constellations regardless of browser
-Added Credits for used packages/assets to readme in Github
+Improved post-postgame content
+A new timer Starlight Age appears in Options after finishing the first Star Constellation
 
 Fixes:
-Maybe (?) fixed problem with holding formulas after inactive period on Android/Firefox
-Record Playtime should stay after Destiny Reset
-Fixed spelling error: choose -> chose
-Research all bar progress depends on bar with shortest remaining time instead of bar with biggest progress percentage
+Fixed a mail that was broken

@@ -202,6 +202,12 @@ export default function OptionScreen({state, popup, updateState, setTotalClicks}
           <>Playtime:&nbsp;&nbsp;{secondsToHms((Date.now() - state.destinyStartTimeStamp)/1000)}</>)
       }
       {state.destinyStars > 1 && state.destinyRecordMillis <= 30*86400*1000 && <><br/>Record:&nbsp;&nbsp;{secondsToHms(state.destinyRecordMillis/1000)}</>}
+      {state.starlightStartTimeStamp > 0 && 
+        (state.starlightEndTimeStamp > 0 ? 
+          <><br/>Starlight Age:&nbsp;&nbsp;{secondsToHms((state.starlightEndTimeStamp - state.starlightStartTimeStamp)/1000)}&nbsp;&nbsp;[Infinite Starlight!]</> 
+        :
+          <><br/>Starlight Age:&nbsp;&nbsp;{secondsToHms((Date.now() - state.starlightStartTimeStamp)/1000)}</>)
+      }
       <p>This game is created by Zilvarro.</p>
       {state.mileStoneCount >= 3 ? 
         <p><a href={"https://discord.gg/" + invitation} target="_blank" rel="noopener noreferrer">Join the Discord Community</a></p>

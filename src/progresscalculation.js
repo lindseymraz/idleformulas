@@ -136,6 +136,12 @@ export const getStarLightRate = (state)=>{
 }
 
 export const generateStarLight = (state, deltaMilliSeconds) => {
+    if (deltaMilliSeconds < 10)
+        return
+    if (isNaN(state.starLight)) {
+        console.log("Starlight became NaN")
+        state.starlight = 0
+    }
     state.starLight += deltaMilliSeconds / 1000 * getStarLightRate(state)
     state.starLight = Math.min(state.starLight,constellationPrices[state.constellationCount])
 }
