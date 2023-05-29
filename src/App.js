@@ -78,8 +78,8 @@ function App() {
 
   return (<>
     <AutoSave saveState={state}/>
-    <PopupDialog popupState={popupState} setPopupState={setPopupState}/>
     <KeyBoardHandler state={state} updateState={updateState} popup={popup}/>
+    <PopupDialog popupState={popupState} setPopupState={setPopupState} discardable={state.settings.hotkeyDiscardPopup === "ON"}/>
     {state.settings.headerDisplay === "VERTICAL" && <div style={{fontSize: "32px", fontWeight:"bold", marginLeft: "20px", marginBottom: "10px", textAlign:"left"}}>
       <div>x&nbsp;=&nbsp;{formatNumber(state.xValue[0], state.settings.numberFormat, 6, false, false)}</div>
       {state.progressionLayer >= 1 && <div>&alpha;&nbsp;=&nbsp;{formatNumber(state.alpha, state.settings.numberFormat, 6, false, false)}</div>}

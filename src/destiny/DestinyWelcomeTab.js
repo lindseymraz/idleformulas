@@ -1,5 +1,5 @@
 import { getStarLightRate } from "../progresscalculation"
-import { formatNumber } from "../utilities"
+import { formatNumber, logB } from "../utilities"
 import { starConstellations, constellationList, constellationPrices} from "./DestinyConstellationDictionary"
 import DestinyConstellationButton from "./DestinyConstellationButton"
 
@@ -52,6 +52,15 @@ const starlightDictionary = {
     },
 }
 
+const getUpgradeLevelByStarlight = (upgrade, starLight)=>{
+    if (starLight === Infinity)
+        return 1000
+//  debugger
+    const level =  Math.max(0, 1 + logB(upgrade.costMultiplier, Math.min((starLight + 1) * 5000, 1.6e308) / upgrade.costBase))
+    
+    return Math.floor(Math.min(1000, level))
+}
+
 export const autoBuyStarlightUpgrades = (state) => {
     let upgradeList
     if (state.starLightInfiniteResetCount === 0)
@@ -66,7 +75,7 @@ export const autoBuyStarlightUpgrades = (state) => {
         const upgrade = starlightDictionary[upgradeName]
         const actualCost = Math.floor(upgrade.costBase * Math.pow(upgrade.costMultiplier, state[upgrade.currency]) * (state.constellationCount < 12 ? Math.pow(0.5, state.constellationCount) : 1/5000) )
         if (state.starLight >= actualCost)
-            state[upgrade.currency] = Math.min(state[upgrade.currency] + 1, 1000)
+            state[upgrade.currency] = getUpgradeLevelByStarlight(upgrade, state.starLight) //Math.min(state[upgrade.currency] + 1, 1000)
     }
 }
 
@@ -119,8 +128,8 @@ export default function DestinyWelcomeTab({state, popup, updateState}) {
                         {state.starLightInfiniteResetCount === 0 && <>Unlocks Auto Astral Glances!</>}
                         {state.starLightInfiniteResetCount === 1 && <>Unlocks Auto Shooting Stars!</>}
                         {state.starLightInfiniteResetCount === 2 && <>Unlocks Auto Luminous Moons!</>}
-                        {state.starLightInfiniteResetCount >=3 && state.starlightRecordMillis > 180000 && <>Get &lambda;=Infinity within 3 minutes</>}
-                        {state.starLightInfiniteResetCount >=3 && state.starlightRecordMillis < 180000 && !state.mailsReceived["Eternal"] && <>Max out all Starlight Upgrades</>}
+                        {state.starLightInfiniteResetCount >=3 && state.starlightRecordMillis > 120000 && <>Get &lambda;=Infinity within 2 minutes</>}
+                        {state.starLightInfiniteResetCount >=3 && state.starlightRecordMillis <= 120000 && !state.mailsReceived["Eternal"] && <>Max out all Starlight Upgrades</>}
                     </>}
                     {/* {getStarLightRate(state) < 20 && <><button onClick={()=>updateState({name:"buyLightUpgrade", currency:"starLight", cost:0})}>Gaze at the night sky</button><br/><br/></>} */}
                     <h2>Star Constellations</h2>

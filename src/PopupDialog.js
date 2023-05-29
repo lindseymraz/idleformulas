@@ -1,4 +1,5 @@
 import Modal from 'simple-react-modal'
+import Hotkeys from 'react-hot-keys'
 
 export const makeShowPopup = (popupState, setPopupState) => {
     return {
@@ -20,11 +21,14 @@ export const makeShowPopup = (popupState, setPopupState) => {
             const mycallback = (option)=>(option==="YES" && callback(option))
             setPopupState({text: text, options: ["YES","NO"], callback: mycallback, visible: true, outerClose})
         },
+        discard: ()=>{
+            setPopupState({text: "", options: [], callback: ()=>true, visible:false})
+        },
         popupState: popupState,
     } 
 }
 
-export function PopupDialog({popupState, setPopupState}) {
+export function PopupDialog({popupState, setPopupState, discardable}) {
     const closePopup = (option) => {
         const callback = popupState.callback
         setPopupState({text: "", options: [], callback: ()=>true, visible:false})
@@ -41,6 +45,7 @@ export function PopupDialog({popupState, setPopupState}) {
             show={popupState.visible}
             onClose={(evt)=>{setPopupState({...popupState, visible:false})}}
             >
+            <Hotkeys keyName="Escape" disabled={!discardable} onKeyDown={()=>{setPopupState({text: "", options: [], callback: ()=>true, visible:false})}}/>
             <p>{popupState.text}</p>
             {popupState.options.map(option=>
                 <button key={option} onClick={()=>closePopup(option)} style={{padding:"2px 10px 2px 10px", margin:"10px", fontWeight:"bold"}}>{option}</button>

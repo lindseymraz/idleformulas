@@ -81,7 +81,7 @@ export const mailDictionary = {
         sender: "Mister Y",
         check: (state)=>(state.alpha >= 42),
         delay: 500,
-        afterRead: ["Dangerous"],
+        afterRead: ["Dangerous", "InfiniteProblemsHint"],
     },
     "Dangerous":{
         id: "Dangerous",
@@ -478,7 +478,7 @@ export const mailDictionary = {
         title: "The eternal night is over",
         content: <>This is absolutely incredible. With an Infinity of Starlight, replenishing itself quickly should darkness ever arise again, the eternal night is finally coming to an end, and the Age of Illumination is about to begin. However, the dawn of this new era means that it is time for us to part ways. And that it is time for me to get some rest. But I will hold to the memories of our time together dearly, and take them with me, whereever fate may take me!<br/><br/>Farewell, and thank you for everything!<br/><br/>Estelle</>,
         sender: "Estelle",
-        check: (state)=>(state.starlightRecordMillis < 180000 && state.starLight >= Infinity && state.lightAdder >= 1000 && state.lightDoubler >= 1000 && state.lightRaiser >= 1000),
+        check: (state)=>(state.starlightRecordMillis <= 120000 && state.starLight >= Infinity && state.lightAdder >= 1000 && state.lightDoubler >= 1000 && state.lightRaiser >= 1000),
         delay: 0,
         silent: true,
     },
@@ -682,6 +682,15 @@ export const mailDictionary = {
         check: (state)=>(true),
         delay: 12000,
         afterComplete: [[]],
+    },
+    "InfiniteProblemsHint":{
+        id: "InfiniteProblemsHint",
+        title: "You were soooo close",
+        content: <>While browsing the logs I've seen that you got a bad ending while trying to achieve greatness. But do not give up, you are on the right track and really close! I dug a bit deeper into what happened there, and it seems like your x''' got to -Infinity. So if you switch to applying the formula carefully one by one as soon as your x''' starts going crazy, you should be able to avoid that and still get x to Infinity. Good luck!</>,
+        sender: "Dev",
+        check: (state)=>(state.infProd),
+        abandon: (state)=>(state.startingStoneTurned["WorldFormula"]),
+        delay: 5400,
     },
 
     //Sidestory: x-Mail

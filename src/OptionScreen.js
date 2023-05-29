@@ -171,6 +171,10 @@ export default function OptionScreen({state, popup, updateState, setTotalClicks}
         {spaces()}<MultiOptionButton settingName="hotkeyXReset" statusList={["ON","OFF"]} state={state} updateState={updateState} setTotalClicks={setTotalClicks}
           description="x-Reset Hotkey [X]" tooltip="Controls whether the X Key can be pressed to perform an x-Reset" tooltipList={["Hotkey Enabled", "Hotkey Disabled"]}/>
         </p>
+        <p>
+          {spaces()}<MultiOptionButton settingName="hotkeyDiscardPopup" statusList={["ON","OFF"]} state={state} updateState={updateState} setTotalClicks={setTotalClicks}
+            description="Dismiss Popup [Escape]" tooltip="Controls whether the Escape Key can be pressed to close Popups" tooltipList={["Hotkeys Enabled", "Hotkeys Disabled"]}/>
+        </p>
         {(state.destinyStars > 1 || state.progressionLayer > 0) && <p>
           {spaces()}<MultiOptionButton settingName="hotkeyAlphaReset" statusList={["ON","OFF"]} state={state} updateState={updateState} setTotalClicks={setTotalClicks}
             description="Alpha-Reset Hotkey [A]" tooltip="Controls whether the A Key can be pressed to perform an Alpha-Reset" tooltipList={["Hotkey Enabled", "Hotkey Disabled"]}/>

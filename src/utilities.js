@@ -181,7 +181,7 @@ const stringifyFixer = (key, value)=>{
     if (value === Infinity)
         return "[!$+Infinity$!]"
     if (value === -Infinity)
-        return "[!$Infinity$!]"
+        return "[!$-Infinity$!]"
     if (Number.isNaN(value))
     {
         console.error("NaN detected for key " + key)

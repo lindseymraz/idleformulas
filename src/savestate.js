@@ -14,7 +14,7 @@ import { checkResearch, researchList } from "./alpha/AlphaResearchHelper";
 import { autoBuyStarlightUpgrades } from "./destiny/DestinyWelcomeTab";
 
 export const majorversion = 1
-export const version = "1.10"
+export const version = "1.11"
 export const productive = true
 export var invitation = "efHyDkqGRZ"
 
@@ -107,6 +107,7 @@ export const newSave = {
     completedEndings: {},
     allTimeEndings: {},
     badEndingCount: 0,
+    infProd: false, //For Hint about avoiding x'''=-Infinity
     passedTime: 0, //For Debugging
     noProdTime: 0, //For Prince Mail
     mailsForCheck: ["Warning"],
@@ -151,6 +152,7 @@ export const newSave = {
         hotkeyToggleAuto: "OFF",
         hotkeyAbortRun: "OFF",
         hotkeyResearchAll: "OFF",
+        hotkeyDiscardPopup: "ON",
     }
 }
 
@@ -743,6 +745,9 @@ export const saveReducer = (state, action)=>{
         if (state.mileStoneCount > 0 && state.settings.autoSave === "ON" && lastSaveMilliseconds >= 10000) {
             save(state)
         }
+
+        if (state.xValue[3] === -Infinity)
+            state.infProd = true //Triggers mail with hint if world formula not found within 90 minutes
 
         //Failsafe NaN
         if (!state.currentEnding && (isNaN(state.xValue[0]) || isNaN(state.xValue[1]) || isNaN(state.xValue[2]) || isNaN(state.xValue[3])))

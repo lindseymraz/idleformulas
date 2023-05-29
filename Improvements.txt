@@ -13,22 +13,16 @@ LOW: Explain tick order in detail (Maybe glossary or just a mail)
 
 ~~~~~~~~~~~ALPHA~~~~~~~~~~~
 
-LOW: Back button to quit endings early
 LOW: Notification for new highscores
 LOW: Allow skipping Endings that are already completed
 LOW: Explain research in detail (Maybe glossary or just a mail)
 
 ~~~~~~~~~~DESTINY~~~~~~~~~~
 
-LOW: Allow enabling Destiny multiplier on single clicks
-
 ~~~~~~~~~~~MAILS~~~~~~~~~~~
-
-LOW: Chapter Completion Stats
 
 ~~~~~~~~~~OPTIONS~~~~~~~~~~
 
-LOW: Also show best x and Alpha in Options or Mail
 MEDIUM: Export as file
 
 
@@ -46,3 +40,7 @@ Negative Space Rounding
 Change Highscore Text when x is above Highscore
 Grey out Subtab Buttons when fully done
 Next formula at... should not target hidden formulas
+Also show best x and Alpha in Options or Mail
+Chapter Completion Stats
+Allow enabling Destiny multiplier on single clicks
+Back button to quit endings early
