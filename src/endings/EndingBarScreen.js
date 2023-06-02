@@ -3,6 +3,7 @@ import { getGlobalMultiplier } from '../savestate'
 
 import {endingList} from './EndingDictionary'
 import EndingFinalScreen from './EndingFinalScreen'
+import LeaveConfirm from '../LeaveConfirm'
 
 export default function EndingBarScreen({state, popup, updateState}) {
     const [ oldEnding, updateOldEnding] = useState(0)
@@ -91,6 +92,7 @@ export default function EndingBarScreen({state, popup, updateState}) {
 
     return (
         <div style={{position:"absolute", margin:"auto", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center"}}>{<>
+            <LeaveConfirm saveState={state}/>
             <p><b>{headerText}</b></p><br/>
             {(currencyAmount > 0 || currencyAmount.length > 0) && <p>{ending.currencyName}{ending.ascending === -1 ? Math.ceil(ending.currencyGoal - currencyAmount) : currencyAmount}</p>}<br/>
             <div onClick={clickProgressBar} style={{position: "relative", margin:"auto", color: "#000000", backgroundColor:"#ffffff", border:"2px solid", height:"25px",width:"300px"}}>

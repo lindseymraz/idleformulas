@@ -1,3 +1,5 @@
+import LeaveConfirm from "../LeaveConfirm"
+
 export default function EndingSelectionScreen({state, popup, updateState}) {  
     
     const startEnding = (endingName)=>{
@@ -14,6 +16,7 @@ export default function EndingSelectionScreen({state, popup, updateState}) {
 
     return (
         <div style={{position:"absolute", margin:"auto", width:"90%", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center"}}>{<>
+            <LeaveConfirm saveState={state}/>
             <h3><b>You found the World Formula!<br/><br/>What do you want to do with it?</b></h3><br/>
             <button onClick={()=>startEnding("good")}><b>I want to do GOOD THINGS for the world!</b></button><br/><br/>
             <button onClick={()=>startEnding("evil")}><b>I want to do EVIL THINGS to the world!</b></button><br/><br/>

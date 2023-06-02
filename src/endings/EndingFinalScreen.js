@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { getGlobalMultiplier } from '../savestate'
+import LeaveConfirm from '../LeaveConfirm'
 
 export default function EndingFinalScreen({state, action, popup, updateState, children}) {
     const [ startTime , ] = useState(Date.now())
@@ -14,6 +15,7 @@ export default function EndingFinalScreen({state, action, popup, updateState, ch
 
     return (
         <div style={{position:"absolute", margin:"auto", top:"20%", left:"50%", transform:"translate(-50%,-20%)", textAlign:"center"}}>{<>
+            <LeaveConfirm saveState={state}/>
             <h1 style={{fontSize:"50px"}}>{action.title}</h1>
             <p style={{fontSize:"14px"}}>{action.quoteText}<br/>{action.quoteAuthor}</p><br/><br/>
             <div style={{fontSize:"20px"}}>{action.storyText}</div>

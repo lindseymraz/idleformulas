@@ -11,9 +11,7 @@
 ============DONE=============
 
 Changes:
-Added a new mail "You were soooo close" to help with reaching the world formula
-Escape Hotkey can be used to dismiss Popups
-Small tweak to post-postgame
+Added a confirmation popup when refreshing/closing the game during an ending (game does not save during those)
 
 Fixes:
-Fixed minor bug in stringify-fixer
+Fixed error in offline calculation where Infinity was not handled properly

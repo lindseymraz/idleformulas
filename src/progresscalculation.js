@@ -173,7 +173,7 @@ export const simulateOfflineProgress = (state, deltaMilliSeconds) => {
     state.formulaApplyCount += Math.floor(activeAppliers * state.autoApplyRate * (deltaMilliSeconds - 300) / 1000)
 
     // STEP 3: Calculate Production
-    state = applyProduction(state, (deltaMilliSeconds - 300) * getGlobalMultiplier(state), applierBonus)
+    state = applyProduction(state, (deltaMilliSeconds - 300) * getGlobalMultiplier(state), applierBonus.map((v)=>(v || 0)))
  
     return state
 }
