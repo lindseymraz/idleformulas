@@ -210,11 +210,11 @@ export default function FormulaScreen({state, updateState, setTotalClicks, popup
           <p>
             {(state.alphaUpgrades.MEEQ) && <>
               <button onClick={memorize} style={{color:"black"}} disabled={state.activeChallenges.FULLYIDLE} title={"Saves equip layout so you can use it again later"}>Memorize</button>
-              {spaces()}<button onClick={remember} style={{color:"black"}}disabled={state.activeChallenges.FULLYIDLE || state.anyFormulaUsed} title={"Loads saved equip layout for current x-Reset"}>Remember</button>
-              {spaces()}<button onClick={clearLoadout} style={{color:"black"}} disabled={state.activeChallenges.FULLYIDLE} title={"Unequips all unused formulas"}>Unequip</button>
+              &nbsp;&nbsp;<button onClick={remember} style={{color:"black"}}disabled={state.activeChallenges.FULLYIDLE || state.anyFormulaUsed} title={"Loads saved equip layout for current x-Reset"}>Remember</button>
+              &nbsp;&nbsp;<button onClick={clearLoadout} style={{color:"black"}} disabled={state.activeChallenges.FULLYIDLE} title={"Unequips all unused formulas"}>Unequip</button>
             </>}
             {(state.alphaUpgrades.SAPP) && <>
-              {spaces()}<button onClick={toggleAutoApply} style={{color:"black"}}disabled={state.activeChallenges.FULLYIDLE} title={"Activate/Deactivate all Auto Appliers"}>Auto</button>
+              &nbsp;&nbsp;<button onClick={toggleAutoApply} style={{color:"black"}}disabled={state.activeChallenges.FULLYIDLE} title={"Activate/Deactivate all Auto Appliers"}>Auto</button>
             </>}
             {(state.alphaUpgrades.MEMS) && <><br/><br/>
               <button onClick={()=>selectLoadout(0)} style={{color:"black"}} disabled={state.activeChallenges.FULLYIDLE} title={"Select Loadout A"}>{state.selectedLayout === 0 ? <div style={{fontWeight:900}}>Loadout A</div> : <>Loadout A</>}</button>

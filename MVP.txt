@@ -11,7 +11,10 @@
 ============DONE=============
 
 Changes:
+The site works offline now (if browser supports it)
+The game can now be installed as a web-app. If the feature is available for your browser/device, a button "Install as Web-App" should appear in the Options.
 Added a confirmation popup when refreshing/closing the game during an ending (game does not save during those)
+Buttons Memorize/Remember/Unequip/Auto are slightly closer together
 
 Fixes:
 Fixed error in offline calculation where Infinity was not handled properly

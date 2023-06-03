@@ -80,14 +80,14 @@ export const formatNumber = (number, numberFormat, decimals=0, smallfixed=false,
 }
 
 export const notify = {
-    success: function(title, text) {
-        this.showNotification({status:'success',title:title, text:text})
+    success: function(title, text, persist) {
+        this.showNotification({status:'success',title:title, text:text, autoclose:!persist, showCloseButton:persist})
     },
-    warning: function(title, text) {
-        this.showNotification({status:'warning',title:title, text:text})
+    warning: function(title, text, persist) {
+        this.showNotification({status:'warning',title:title, text:text, autoclose:!persist, showCloseButton:persist})
     },
-    error: function(title, text) {
-        this.showNotification({status:'error',title:title, text:text})
+    error: function(title, text, persist) {
+        this.showNotification({status:'error',title:title, text:text, autoclose:!persist, showCloseButton:persist})
     },
     showNotification: (props) => {
         return new Notify({
@@ -95,8 +95,8 @@ export const notify = {
             effect: 'fade',
             speed: 1000,
             //customClass: "",
-            showCloseButton: false,//
-            autoclose: true,//
+            showCloseButton: false,
+            autoclose: true,
             autotimeout: 2000,
             type: 1,
             ...props
