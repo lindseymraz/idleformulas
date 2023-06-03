@@ -68,10 +68,11 @@ export default function OptionScreen({state, popup, updateState, setTotalClicks}
         {spaces()}<button title={"Perform a manual save. The game also automatically saves every 10 seconds"} onClick={saveGame} disabled={state.mileStoneCount < 1}>Manual Save</button>
         {spaces()}<button title={"Exports the current game state as a text string to the clipboard"} onClick={exportGame} disabled={state.mileStoneCount < 1}>Export</button>
         {spaces()}<button title={"Imports a previously exported text string and restores its game state"} onClick={importGame}>Import</button>
-        {!!window.installPromptPWAevent && <button onClick={()=>{window.installPromptPWAevent.prompt(); window.installPromptPWAevent = null}}>Install as Web-App</button>}
         {/* {spaces()}<MultiOptionButton settingName="autoSave" statusList={["ON","OFF"]} state={state} updateState={updateState} setTotalClicks={setTotalClicks}
           description="Auto Save" tooltip="Controls whether the game saves automatically" tooltipList={["Saves automatically every 10 seconds and tries to save (depends on browser) before closing tab","Game is not saved automatically"]}/> */}
-      </p><p> 
+      </p>
+      {!!window.installPromptPWAevent && <p>{spaces()}<button onClick={()=>{window.installPromptPWAevent.prompt(); window.installPromptPWAevent = null}}>Install as Web-App</button></p>}
+      <p> 
         {/* {spaces()}<button onClick={load}>Load Game</button> */}
         
         {/* {spaces()}<MultiOptionButton settingName="autoLoad" statusList={["ON","OFF"]} state={state} updateState={updateState} setTotalClicks={setTotalClicks}

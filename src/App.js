@@ -15,6 +15,7 @@ import AutoSave from './AutoSave'
 import {PopupDialog, makeShowPopup} from './PopupDialog'
 import EndingSelectionScreen from './endings/EndingSelectionScreen';
 import KeyBoardHandler from './KeyBoardHandler';
+import { schedulePeriodicUpdateChecks } from './serviceWorkerRegistration';
 
 function App() {
   const [ playTime, setPlayTime ] = useState(0)
@@ -39,6 +40,13 @@ function App() {
     if (playTime > 0)
       updateState({name: "idle", popup:popup, playTime:playTime})
   },[playTime, popup])
+
+  //Checks for updates once per hour if online
+  useEffect(()=>{
+    setTimer((t)=>{
+      schedulePeriodicUpdateChecks(3600,()=>{console.log("Attempt Update Check")},()=>{console.log("Update Check Completed")})
+    })
+  },[])
 
   useEffect(() => {
     let link = document.querySelector("link[rel~='icon']");
