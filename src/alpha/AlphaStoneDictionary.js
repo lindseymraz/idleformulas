@@ -41,7 +41,7 @@ export const startingStones = {
     },
     "VeryAlpha":{
         id: "VeryAlpha",
-        title: "Alpha Millionnaire",
+        title: "Mighty Million",
         description: <>Reach a million Alpha</>,
         check: (state=>(state.alpha >= 1e6)),
     },

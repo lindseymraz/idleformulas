@@ -56,7 +56,7 @@ export default function AlphaStonesTab({state, popup, updateState}) {
         <div style={{marginLeft:"20px"}}>{<>
             <h2>Starting Stones</h2>
                 <p>(a.k.a. "Why am I even doing these?")</p><br/>
-                &nbsp;<button onClick={()=>changeStoneMode(1)}>{state.startingStoneMode===1?<b>Increment</b>:<>Increment</>}</button>&nbsp;&nbsp;
+                <button onClick={()=>changeStoneMode(1)}>{state.startingStoneMode===1?<b>Increment</b>:<>Increment</>}</button>&nbsp;&nbsp;
                 <button onClick={()=>changeStoneMode(-1)}>{state.startingStoneMode===-1?<b>Decrement</b>:<>Decrement</>}</button>&nbsp;&nbsp;
                 <button onClick={()=>changeStoneMode(0)}>{state.startingStoneMode===0?<b>Description</b>:<>Description</>}</button>&nbsp;&nbsp;
                 <button onClick={resetStones}>Reset</button><br/><br/>

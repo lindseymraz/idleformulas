@@ -11,7 +11,8 @@
 ============DONE=============
 
 Changes:
-While the site/app is active and online, it checks for updates once per hour, and notifies the player if a new update is found
+"Import" now uses a custom popup instead of the default browser prompt
+Added a popup about savedata still being linked to the browser after clicking "Install as Web-App"
 
 Fixes:
-Automatically disappearing notifications don't have close button anymore (bug introduced in last update)
+Renamed "Alpha Millionaire" to "Mighty Million", because "Millionaire" was too long to fit inside the box on Chrome on my phone

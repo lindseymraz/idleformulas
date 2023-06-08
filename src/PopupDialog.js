@@ -3,8 +3,11 @@ import Hotkeys from 'react-hot-keys'
 
 export const makeShowPopup = (popupState, setPopupState) => {
     return {
-        show: (text, options, callback, outerClose)=>{
+        show: (text, options, callback, outerClose, showInput)=>{
             setPopupState({text: text, options: options, callback: callback, visible: true, outerClose})
+        },
+        prompt: (text, placeholder, options, callback, outerClose)=>{
+            setPopupState({text: text, options: options, callback: callback, visible: true, outerClose, showInput:true, inputText:"", inputPlaceholder:placeholder})
         },
         alert: (text, callback, skip, outerClose)=>{
             if (skip) {
@@ -30,9 +33,13 @@ export const makeShowPopup = (popupState, setPopupState) => {
 
 export function PopupDialog({popupState, setPopupState, discardable}) {
     const closePopup = (option) => {
-        const callback = popupState.callback
+        const oldPopupState = {...popupState}
         setPopupState({text: "", options: [], callback: ()=>true, visible:false})
-        callback?.(option)
+        oldPopupState.callback?.(option, oldPopupState) //Callback must be invoked after resetting popup, so a new popup can be shown
+    }
+
+    const changeInputText = (e)=>{
+        setPopupState({...popupState, inputText: e.target.value})
     }
 
     // return (<Modal>Test</Modal>)
@@ -47,6 +54,7 @@ export function PopupDialog({popupState, setPopupState, discardable}) {
             >
             <Hotkeys keyName="Escape" disabled={!discardable} onKeyDown={()=>{setPopupState({text: "", options: [], callback: ()=>true, visible:false})}}/>
             <p>{popupState.text}</p>
+            {popupState.showInput && <div><textarea cols="30" rows="4" style={{resize:"none"}} placeholder={popupState.inputPlaceholder} value={popupState.inputText} onChange={changeInputText}/></div>}
             {popupState.options.map(option=>
                 <button key={option} onClick={()=>closePopup(option)} style={{padding:"2px 10px 2px 10px", margin:"10px", fontWeight:"bold"}}>{option}</button>
             )}

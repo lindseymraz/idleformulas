@@ -30,14 +30,25 @@ export default function OptionScreen({state, popup, updateState, setTotalClicks}
   }
 
   const importGame = ()=>{
-    const encodedState = window.prompt("Paste your save here:");
-    if (encodedState && (!state.mileStoneCount || window.confirm("This will overwrite your current save! Are you sure?"))){
-      const decodedState = JSON.parse(Buffer.from(encodedState,"base64").toString())
-      const stateToLoad = {...structuredClone(newSave), ...decodedState, settings:{...structuredClone(newSave.settings), ...decodedState.settings}, saveTimeStamp: Date.now(), currentEnding: decodedState.currentEnding, justLaunched: true}
-      updateState({name: "load", state: stateToLoad})
-      setTotalClicks((x)=>x+1)
-      notify.success("Save Imported")
-    }
+    popup.prompt("IMPORT", "Paste your savestring here...", ["IMPORT", "CANCEL"], (option, popupState)=>{
+      const encodedState = popupState.inputText;
+      if (option==="CANCEL" || !encodedState) return
+
+      try {
+        const decodedState = JSON.parse(Buffer.from(encodedState,"base64").toString())
+        const stateToLoad = {...structuredClone(newSave), ...decodedState, settings:{...structuredClone(newSave.settings), ...decodedState.settings}, saveTimeStamp: Date.now(), currentEnding: decodedState.currentEnding, justLaunched: true}
+        popup.confirm("This will overwrite your current save! Are you sure?", ()=>{
+          console.log("Attempting to load")
+          updateState({name: "load", state: stateToLoad})
+          setTotalClicks((x)=>x+1)
+          notify.success("Save Imported")
+        })
+      } catch (error) {
+        console.error(error)
+        notify.error("IMPORT FAILED")
+        return
+      }
+    })
   }
 
   const resetSave = ()=>{
@@ -71,7 +82,7 @@ export default function OptionScreen({state, popup, updateState, setTotalClicks}
         {/* {spaces()}<MultiOptionButton settingName="autoSave" statusList={["ON","OFF"]} state={state} updateState={updateState} setTotalClicks={setTotalClicks}
           description="Auto Save" tooltip="Controls whether the game saves automatically" tooltipList={["Saves automatically every 10 seconds and tries to save (depends on browser) before closing tab","Game is not saved automatically"]}/> */}
       </p>
-      {!!window.installPromptPWAevent && <p>{spaces()}<button onClick={()=>{window.installPromptPWAevent.prompt(); window.installPromptPWAevent = null}}>Install as Web-App</button></p>}
+      {!!window.installPromptPWAevent && <p>{spaces()}<button onClick={()=>{window.installPromptPWAevent.prompt(); window.installPromptPWAevent = null; popup.alert(<>IMPORTANT NOTE:<br/><br/>The game data is still stored in the browser even when using the app.<br/>Therefore deleting the browser cache also resets the app including your save.</>)}}>Install as Web-App</button></p>}
       <p> 
         {/* {spaces()}<button onClick={load}>Load Game</button> */}
         
