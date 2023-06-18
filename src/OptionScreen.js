@@ -31,7 +31,17 @@ export default function OptionScreen({state, popup, updateState, setTotalClicks}
       navigator.clipboard.writeText(encodedState).then(success, failed)
     else
       fallbackCopyTextToClipboard(encodedState, success, failed)
-    
+  }
+
+  const exportAsFile = ()=>{
+    const encodedState = Buffer.from(stringifyProperly(state)).toString("base64");
+    const element = document.createElement("a")
+    const file = new Blob([encodedState], {type: 'text/plain'})
+    element.href = URL.createObjectURL(file)
+    element.download = "IdleFormulas"
+    document.body.appendChild(element)
+    element.click()
+    element.remove()
   }
 
 
@@ -110,8 +120,9 @@ export default function OptionScreen({state, popup, updateState, setTotalClicks}
   return (<div style={{marginLeft: "20px"}}>
     <h1>Options</h1>
       <p>
-        {spaces()}<button title={"Perform a manual save. The game also automatically saves every 10 seconds"} onClick={saveGame} disabled={state.mileStoneCount < 1}>Manual Save</button>
+        {spaces()}<button title={"Perform a manual save. The game also automatically saves every 10 seconds"} onClick={saveGame} disabled={state.mileStoneCount < 1}>Manual Save</button><br/><br/>
         {spaces()}<button title={"Exports the current game state as a text string to the clipboard"} onClick={exportGame} disabled={state.mileStoneCount < 1}>Export</button>
+        {spaces()}<button title={"Exports the current game state as a text file for download"} onClick={exportAsFile} disabled={state.mileStoneCount < 1}>Export File</button>
         {spaces()}<button title={"Imports a previously exported text string and restores its game state"} onClick={importGame}>Import</button>
         {/* {spaces()}<MultiOptionButton settingName="autoSave" statusList={["ON","OFF"]} state={state} updateState={updateState} setTotalClicks={setTotalClicks}
           description="Auto Save" tooltip="Controls whether the game saves automatically" tooltipList={["Saves automatically every 10 seconds and tries to save (depends on browser) before closing tab","Game is not saved automatically"]}/> */}

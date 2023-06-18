@@ -11,8 +11,6 @@
 ============DONE=============
 
 Changes:
-Playtime only starts counting when x > 0 for the first time
+Added option to Export save as downloadable File
 
 Fixes:
-Mail from Prince about virus now more accurately says "production" instead of "x production"
-Copy to Clipboard should now work in more browsers

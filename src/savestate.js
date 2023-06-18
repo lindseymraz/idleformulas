@@ -14,7 +14,7 @@ import { checkResearch, researchList } from "./alpha/AlphaResearchHelper";
 import { autoBuyStarlightUpgrades } from "./destiny/DestinyWelcomeTab";
 
 export const majorversion = 1
-export const version = "1.15"
+export const version = "1.16"
 export const productive = true
 export var invitation = "efHyDkqGRZ"
 
