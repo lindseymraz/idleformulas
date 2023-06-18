@@ -14,7 +14,7 @@ import { checkResearch, researchList } from "./alpha/AlphaResearchHelper";
 import { autoBuyStarlightUpgrades } from "./destiny/DestinyWelcomeTab";
 
 export const majorversion = 1
-export const version = "1.14"
+export const version = "1.15"
 export const productive = true
 export var invitation = "efHyDkqGRZ"
 
@@ -175,14 +175,14 @@ export const getSaveGame = ()=>{
     if (savedversion && window.location.href.split("/").pop() !== "?newgame")
         savedgame = window.localStorage.getItem('idleformulas_v' + savedversion)
     if (!savedgame) {
-        return ({...structuredClone(newSave), saveTimeStamp: Date.now(), calcTimeStamp: Date.now(), fileStartTimeStamp: Date.now(), destinyStartTimeStamp: Date.now()})
+        return ({...structuredClone(newSave), saveTimeStamp: Date.now(), calcTimeStamp: Date.now(), fileStartTimeStamp: Date.now()})
     }
     else{
         const decodedGame = Buffer.from(savedgame,"base64").toString()
         const savedgamejson = JSON.parse(decodedGame)
         if (savedgamejson.settings.autoLoad === "OFF") {
             notify.warning("Auto Load disabled")
-            let newgame = {...structuredClone(newSave), saveTimeStamp: Date.now(), calcTimeStamp: Date.now(), fileStartTimeStamp: Date.now(), destinyStartTimeStamp: Date.now()}
+            let newgame = {...structuredClone(newSave), saveTimeStamp: Date.now(), calcTimeStamp: Date.now(), fileStartTimeStamp: Date.now()}
             newgame.settings.autoSave = "OFF"
             newgame.settings.autoLoad = "OFF"
             return newgame
@@ -488,6 +488,10 @@ export const saveReducer = (state, action)=>{
         const aBefore = state.alpha
         const sBefore = state.starLight
 
+        //Makes sure that playtime only starts counting after player did something
+        if (xBefore > 0 && state.destinyStartTimeStamp === -1)
+          state.destinyStartTimeStamp = Date.now()
+
         if (state.noProdTime > 0) {
             state.noProdTime -= deltaMilliSeconds
             deltaMilliSeconds = 0
@@ -763,7 +767,7 @@ export const saveReducer = (state, action)=>{
         state.selectedAlphaTabKey = action.tabKey
         break;
     case "hardreset":
-        state = {...structuredClone(newSave), calcTimeStamp: Date.now(), saveTimeStamp: Date.now(), destinyStartTimeStamp: Date.now(), fileStartTimeStamp: Date.now()};
+        state = {...structuredClone(newSave), calcTimeStamp: Date.now(), saveTimeStamp: Date.now(), fileStartTimeStamp: Date.now()};
         break;
     case "load":
         state = action.state || loadGame() || state;
@@ -865,26 +869,26 @@ export const saveReducer = (state, action)=>{
                 notify.success("CHAPTER 1: FORMULAS")
                 break;
             case "51N6L3PR1M3":
-                state.destinyStartTimeStamp = -1
+                state.destinyStartTimeStamp = -2
                 state.mileStoneCount = 3
                 state.highestXTier = 1
                 notify.success("CHAPTER 2: FIRST DIFFERENTIAL")
                 break;
             case "D0UBL3PR1M3":
-                state.destinyStartTimeStamp = -1
+                state.destinyStartTimeStamp = -2
                 state.mileStoneCount = 4
                 state.highestXTier = 2
                 notify.success("CHAPTER 3: SECOND DIFFERENTIAL")
                 break;
             case "7R1PL3PR1M3":
-                state.destinyStartTimeStamp = -1
+                state.destinyStartTimeStamp = -2
                 state.mileStoneCount = 5
                 state.highestXTier = 3
                 notify.success("CHAPTER 4: THIRD DIFFERENTIAL")
                 break;
             case "4LPH470K3N":
                 state.alpha = 1
-                state.destinyStartTimeStamp = -1
+                state.destinyStartTimeStamp = -2
                 state.mileStoneCount = 6
                 state.progressionLayer = 1
                 state.mailsForCheck = ["Welcome"]
@@ -892,6 +896,7 @@ export const saveReducer = (state, action)=>{
                 notify.success("CHAPTER 5: ALPHA")
                 break;
             case "D3571NY574R":
+                state.destinyStartTimeStamp = -1
                 state.destinyStars = 2
                 state.mileStoneCount = 12
                 state.progressionLayer = 0
@@ -900,7 +905,7 @@ export const saveReducer = (state, action)=>{
                 break;
             case "DEVTEST":
                 if (productive) break
-                state.destinyStartTimeStamp = -1
+                state.destinyStartTimeStamp = -2
                 state.destinyStars = 90
                 state.mileStoneCount = 12
                 state.progressionLayer = 0

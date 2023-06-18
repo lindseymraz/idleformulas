@@ -11,8 +11,8 @@
 ============DONE=============
 
 Changes:
-"Import" now uses a custom popup instead of the default browser prompt
-Added a popup about savedata still being linked to the browser after clicking "Install as Web-App"
+Playtime only starts counting when x > 0 for the first time
 
 Fixes:
-Renamed "Alpha Millionaire" to "Mighty Million", because "Millionaire" was too long to fit inside the box on Chrome on my phone
+Mail from Prince about virus now more accurately says "production" instead of "x production"
+Copy to Clipboard should now work in more browsers

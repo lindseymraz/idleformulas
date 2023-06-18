@@ -25,9 +25,43 @@ export default function OptionScreen({state, popup, updateState, setTotalClicks}
 
   const exportGame = ()=>{
     const encodedState = Buffer.from(stringifyProperly(state)).toString("base64");
-    navigator.clipboard.writeText(encodedState);
-    notify.success("Copied to Clipboard")
+    const success = ()=>notify.success("Copied to Clipboard")
+    const failed = ()=>notify.error("Export failed")
+    if(navigator.clipboard)
+      navigator.clipboard.writeText(encodedState).then(success, failed)
+    else
+      fallbackCopyTextToClipboard(encodedState, success, failed)
+    
   }
+
+
+  function fallbackCopyTextToClipboard(text, success, failed) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+  
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+  
+    try {
+      var successful = document.execCommand('copy');
+      if (successful)
+        success()
+      else
+        failed()
+    } catch (err) {
+      failed()
+      console.error(err)
+    }
+  
+    document.body.removeChild(textArea);
+  }
+
 
   const importGame = ()=>{
     popup.prompt("IMPORT", "Paste your savestring here...", ["IMPORT", "CANCEL"], (option, popupState)=>{

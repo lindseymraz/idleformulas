@@ -549,7 +549,7 @@ export const mailDictionary = {
     "Virus":{
         id: "Virus",
         title: "YOU FOOL",
-        content: <>Haha! You open my Virus! Now no x production for next 20 minutes! Now you get rekt!</>,
+        content: <>Haha! You open my Virus! Now no production for next 20 minutes! Now you get rekt!</>,
         sender: "Prince",
         check: (state)=>(true),
         delay: 5,
