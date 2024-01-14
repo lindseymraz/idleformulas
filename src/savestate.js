@@ -14,7 +14,7 @@ import { checkResearch, researchList } from "./alpha/AlphaResearchHelper";
 import { autoBuyStarlightUpgrades } from "./destiny/DestinyWelcomeTab";
 
 export const majorversion = 1
-export const version = "1.16"
+export const version = "1.17"
 export const productive = true
 export var invitation = "efHyDkqGRZ"
 
@@ -170,10 +170,9 @@ const alphaThresholds = {
 }
 
 export const getSaveGame = ()=>{
-    const savedversion = window.localStorage.getItem('majorversion')
     let savedgame
-    if (savedversion && window.location.href.split("/").pop() !== "?newgame")
-        savedgame = window.localStorage.getItem('idleformulas_v' + savedversion)
+    if (window.location.href.split("/").pop() !== "?newgame")
+        savedgame = window.localStorage.getItem('idleformulas_v' + majorversion)
     if (!savedgame) {
         return ({...structuredClone(newSave), saveTimeStamp: Date.now(), calcTimeStamp: Date.now(), fileStartTimeStamp: Date.now()})
     }
@@ -193,10 +192,7 @@ export const getSaveGame = ()=>{
 }
 
 export const loadGame = ()=>{
-    const savedversion = window.localStorage.getItem('majorversion')
-    let savedgame
-    if (savedversion)
-        savedgame = window.localStorage.getItem('idleformulas_v' + savedversion)
+    const savedgame = window.localStorage.getItem('idleformulas_v' + majorversion)
 
     if (!savedgame) {
         notify.error("No savegame found!")
@@ -233,7 +229,6 @@ export const save = (state)=>{
     state.saveTimeStamp = Date.now()
     let currentgame = stringifyProperly({...state, holdAction:null})
     const encodedGame = Buffer.from(currentgame).toString("base64");
-    window.localStorage.setItem('majorversion', majorversion)
     window.localStorage.setItem('idleformulas_v' + majorversion, encodedGame)
 }
 

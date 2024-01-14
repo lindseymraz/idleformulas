@@ -158,7 +158,7 @@ export default function FormulaButton({state, popup, updateState, setTotalClicks
                 <td align="left" className="block" style={{width:"auto"}}>
                 <button className="fbutton" title={tooltipplus} style={{backgroundColor: buttonColor, minHeight: "40px"}}
                     disabled={lockedByChallenge || state.activeChallenges.FULLYIDLE || !state.formulaUnlocked[formulaName] || (applyNeed && state.xValue[0] < applyNeed) || (applyCost && state.xValue[0] < applyCost)}
-                    onClick={(evt)=>applyFormula(formula,evt)} onMouseDown={mouseHandler} onMouseUp={mouseHandler} onMouseLeave={mouseHandler} onTouchStart={mouseHandler} onTouchEnd={mouseHandler}>
+                    onClick={(evt)=>applyFormula(formula,evt)} onMouseDown={mouseHandler} onMouseUp={mouseHandler} onMouseLeave={mouseHandler} onTouchStart={mouseHandler} onTouchEnd={mouseHandler} onTouchCancel={mouseHandler}>
                     {formula.description}
                 </button>
             </td><td>
