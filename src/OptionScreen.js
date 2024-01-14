@@ -38,7 +38,7 @@ export default function OptionScreen({state, popup, updateState, setTotalClicks}
     const element = document.createElement("a")
     const file = new Blob([encodedState], {type: 'text/plain'})
     element.href = URL.createObjectURL(file)
-    element.download = "IdleFormulas"
+    element.download = "IdleFormulas.txt"
     document.body.appendChild(element)
     element.click()
     element.remove()
