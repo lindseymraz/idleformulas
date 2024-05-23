@@ -2,6 +2,7 @@ This is a mod of Zilvarro's Idle Formulas game!
 
 Changes:
 - LETTER number format option now uses abbreviations consistent with most incremental games. (The original LETTER format option is still available as ORIGINAL LETTER!)
+- Small text fixes: typos, grammar, consistency, etc.
 
 # Idle Formulas
 An incremental game about using various mathematical formulas to increase the value of x.
