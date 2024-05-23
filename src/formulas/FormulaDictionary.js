@@ -265,7 +265,8 @@ const formulaList = {
     "x+50P": {
         formulaName: "x+50P",
         descriptions: {
-            "LETTER": <>x &#10141; x + 20P</>,
+            "LETTER": <>x &#10141; x + 20Qi</>,
+            "ORIGINAL LETTER": <>x &#10141; x + 20P</>,
             "SCIENTIFIC": <>x &#10141; x + 2e19</>,
             "AMBIGUOUS": <>x &#10141; x + 20?</>,
         },
@@ -359,7 +360,8 @@ const formulaList = {
     "x=10Q*x'''*x''/x'": {
         formulaName: "x=10Q*x'''*x''/x'",
         descriptions: {
-            "LETTER": <>x &#10141; 10Q * x''' * x'' / x'</>,
+            "LETTER": <>x &#10141; 10Qa * x''' * x'' / x'</>,
+            "ORIGINAL LETTER": <>x &#10141; 10Q * x''' * x'' / x'</>,
             "SCIENTIFIC": <>x &#10141; 1e16 * x''' * x'' / x'</>,
             "AMBIGUOUS": <>x &#10141; 10? * x''' * x'' / x'</>,
         },
@@ -375,7 +377,8 @@ const formulaList = {
     "x'=5Q*x'''": {
         formulaName: "x'=5Q*x'''",
         descriptions: {
-            "LETTER": <>x' &#10141; 5Q * x'''</>,
+            "LETTER": <>x' &#10141; 5Qa * x'''</>,
+            "ORIGINAL LETTER": <>x' &#10141; 5Q * x'''</>,
             "SCIENTIFIC": <>x' &#10141; 5e15 * x'''</>,
             "AMBIGUOUS": <>x' &#10141; 5? * x'''</>,
         },
@@ -415,7 +418,8 @@ const formulaList = {
     "x'+30S": {
         formulaName: "x'+30S",
         descriptions: {
-            "LETTER": <>x' &#10141; x' + 30S</>,
+            "LETTER": <>x' &#10141; x' + 30Sx</>,
+            "ORIGINAL LETTER": <>x' &#10141; x' + 30S</>,
             "SCIENTIFIC": <>x' &#10141; x' + 3e22</>,
             "AMBIGUOUS": <>x' &#10141; x' + 30?</>,
         },
@@ -428,7 +432,8 @@ const formulaList = {
     "x''+40P": {
         formulaName: "x''+40P",
         descriptions: {
-            "LETTER": <>x'' &#10141; x'' + 40P</>,
+            "LETTER": <>x'' &#10141; x'' + 40Qi</>,
+            "ORIGINAL LETTER": <>x'' &#10141; x'' + 40P</>,
             "SCIENTIFIC": <>x'' &#10141; x'' + 4e19</>,
             "AMBIGUOUS": <>x'' &#10141; x' + 40?</>,
         },
@@ -441,7 +446,8 @@ const formulaList = {
     "x'''*sqrt(300S-x''')/500B": {
         formulaName: "x'''*sqrt(300S-x''')/500B", //x'''*sqrt(300S-x'''/2)/500B
         descriptions: {
-            "LETTER": <>x''' &#10141; x''' * sqrt(300S - x''') / 500B</>,
+            "LETTER": <>x''' &#10141; x''' * sqrt(300Sx - x''') / 500B</>,
+            "ORIGINAL LETTER": <>x''' &#10141; x''' * sqrt(300S - x''') / 500B</>,
             "SCIENTIFIC": <>x''' &#10141; x''' * sqrt(3e23 - x''') / 5e11</>,
             "AMBIGUOUS": <>x''' &#10141; x''' * sqrt(300? - x''') / 500?</>,
         },
@@ -458,7 +464,8 @@ const formulaList = {
         formulaName: "x''+1V",
         description: <>x'' &#10141; x'' + 1V</>,
         descriptions: {
-            "LETTER": <>x'' &#10141; x'' + 1V</>,
+            "LETTER": <>x'' &#10141; x'' + 1Sp</>,
+            "ORIGINAL LETTER": <>x'' &#10141; x'' + 1V</>,
             "SCIENTIFIC": <>x'' &#10141; x'' + 1e24</>,
             "AMBIGUOUS": <>x'' &#10141; x'' + 1?</>,
         },
@@ -472,7 +479,8 @@ const formulaList = {
         formulaName: "x'''+5S",
         description: <>x''' &#10141; x''' + 5S</>,
         descriptions: {
-            "LETTER": <>x''' &#10141; x''' + 5S</>,
+            "LETTER": <>x''' &#10141; x''' + 5Sx</>,
+            "ORIGINAL LETTER": <>x''' &#10141; x''' + 5S</>,
             "SCIENTIFIC": <>x''' &#10141; x''' + 5e21</>,
             "AMBIGUOUS": <>x''' &#10141; x''' + 5?</>,
         },
