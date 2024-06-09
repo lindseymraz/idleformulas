@@ -713,7 +713,7 @@ export const saveReducer = (state, action)=>{
         }
 
         //Estimate x per Second
-        if (state.progressionLayer > 0 || state.destinyStars > 1) {
+
             let perSecond = [0,0,0,0]
             for(let i = 0; i < state.xValue.length; i++) {
                 perSecond[i] = deltaMilliSeconds ? (state.xValue[i] - xValuesBefore[i]) / (deltaMilliSeconds / 1000) : 0
@@ -728,7 +728,7 @@ export const saveReducer = (state, action)=>{
                 state.avgXPerSecond[i] = (newAvg > state.avgXPerSecond[i] || newAvg < 0.9 * state.avgXPerSecond[i]) ? newAvg : state.avgXPerSecond[i]
                 state.avgXPerSecond[i] = state.avgXPerSecond[i] || 0
             }
-        }
+
 
         //Offline Progress Popup
         if (deltaMilliSeconds > 120000 && (state.settings.offlineProgressPopup === "ON" || (state.settings.offlineProgressPopup === "LAUNCH" && state.justLaunched))){
