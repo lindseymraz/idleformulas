@@ -99,7 +99,7 @@ const alphaUpgradeDictionary = {
     },
 }
 
-const applierRates = [2,5,10, 10]
+const applierRates = [10,10,10, 10]
 const applierCosts = [1,3,10, Infinity]
 const applierLevel = state.autoApplyLevel
 let boughtSomething = false
@@ -130,7 +130,7 @@ return (
             <p>Best Fully Idle: {formatNumber(state.bestIdleTimeAlpha, state.settings.numberFormat, 2)}&alpha; in {secondsToHms(state.bestIdleTime  / 1000, true)}</p>
         </>}
         {state.alphaUpgrades.PALP && ((state.passiveAlphaInterval <= 1000) ? <p>Passive Alpha Tokens: {formatNumber(Math.floor(1000 / state.passiveAlphaInterval),state.settings.numberFormat,2)}/s</p> :<p>Next Passive Alpha Token: {secondsToHms(Math.max(0,((state.passiveAlphaInterval - state.passiveAlphaTime) / 1000)))}</p>)}
-        {state.alphaUpgrades.AAPP && <p>Auto Applier Rate: {state.autoApplyRate}/s{spaces()}{applierLevel<2 && <button style={{color:"black"}} disabled={state.alpha < applierCosts[applierLevel + 1]} onClick={upgradeApplierRate}>Upgrade for {applierCosts[applierLevel + 1]} &alpha;</button>}</p>}
+        {<p>Auto Applier Rate: {state.autoApplyRate}/s{spaces()}{applierLevel<2 && <button style={{color:"black"}} disabled={state.alpha < applierCosts[applierLevel + 1]} onClick={upgradeApplierRate}>Upgrade for {applierCosts[applierLevel + 1]} &alpha;</button>}</p>}
         <p>Base &alpha;-Reset Tokens: {formatNumber(baseAlphaMultiplier,state.settings.numberFormat,2)}&nbsp;&nbsp;{state.baseAlphaLevel<12 && <button style={{color:"black"}} disabled={state.alpha < baseAlphaUpgradeCost} onClick={upgradeBaseAlpha}>Double for {formatNumber(baseAlphaUpgradeCost,state.settings.numberFormat,2)} &alpha;</button>}</p>
         </>}
     </div>)

@@ -148,7 +148,6 @@ export const generateStarLight = (state, deltaMilliSeconds) => {
 
 export const simulateOfflineProgress = (state, deltaMilliSeconds) => {
     // STEP 1: Auto Apply Once
-    if (state.alphaUpgrades.AAPP)
         state = autoApply(state)
 
     // STEP 2: Linearly Approximate Auto Appliers
