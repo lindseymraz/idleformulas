@@ -66,7 +66,7 @@ export default function FormulaButton({state, popup, updateState, setTotalClicks
 
     if (!formula) { //--- BUTTON
         return ( 
-            <tr>{state.alphaUpgrades.AAPP && <td><input onClick={toggleAutoApply} disabled={state.activeChallenges.FULLYIDLE} style={{transform:"scale(1.2)"}} type="checkbox" checked={state.autoApply[myIndex]} readOnly></input></td>}
+            <tr>{<td><input onClick={toggleAutoApply} disabled={state.activeChallenges.FULLYIDLE} style={{transform:"scale(1.2)"}} type="checkbox" checked={state.autoApply[myIndex]} readOnly></input></td>}
                 <td align="left" className="block" style={{width:"auto"}}>
                 <button className="fbutton" style={{backgroundColor:"#ffffff", height: "40px"}} disabled={true}>-------</button>
             </td><td>
@@ -154,7 +154,7 @@ export default function FormulaButton({state, popup, updateState, setTotalClicks
 
     if (context === "my") { //APPLY BUTTON
         return (
-            <tr>{state.alphaUpgrades.AAPP && <td><input onClick={toggleAutoApply} disabled={state.activeChallenges.FULLYIDLE} style={{transform:"scale(1.2)"}} type="checkbox" checked={state.autoApply[myIndex]} readOnly></input></td>}
+            <tr>{<td><input onClick={toggleAutoApply} disabled={state.activeChallenges.FULLYIDLE} style={{transform:"scale(1.2)"}} type="checkbox" checked={state.autoApply[myIndex]} readOnly></input></td>}
                 <td align="left" className="block" style={{width:"auto"}}>
                 <button className="fbutton" title={tooltipplus} style={{backgroundColor: buttonColor, minHeight: "40px"}}
                     disabled={lockedByChallenge || state.activeChallenges.FULLYIDLE || !state.formulaUnlocked[formulaName] || (applyNeed && state.xValue[0] < applyNeed) || (applyCost && state.xValue[0] < applyCost)}

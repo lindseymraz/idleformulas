@@ -39,8 +39,8 @@ export const newSave = {
     decreaseCooldown: false,
     myFormulas: [],
     autoApply: [false,false,false,false,false],
-    autoApplyLevel: 0,
-    autoApplyRate: 2,
+    autoApplyLevel: 2,
+    autoApplyRate: 10,
     equipLayouts: [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]],
     shopFavorites: [{},{},{},{}], //-1: hidden // 1: favorite // undefined: normal
     selectedLayout: 0,
@@ -578,7 +578,7 @@ export const saveReducer = (state, action)=>{
 
         //Auto Appliers
         state.millisSinceAutoApply += deltaMilliSeconds
-        if (state.alphaUpgrades.AAPP && state.millisSinceAutoApply > 800 / state.autoApplyRate){
+        if (state.millisSinceAutoApply > 800 / state.autoApplyRate){
             for (let i = 0; i<5; i++) {
                 if (state.autoApply[i] && state.myFormulas.length > i) {
                     progresscalculation.applyFormulaToState(state,formulaList[state.myFormulas[i]],false, true, true)
