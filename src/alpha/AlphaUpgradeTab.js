@@ -14,7 +14,7 @@ const alphaUpgradeDictionary = {
         id:"AAPP",
         title:"Auto Applier",
         description:"Applies a formula for you twice per second, if beneficial. Rate can be further upgraded.",
-        cost:1,
+        cost:0,
     },
     "FREF": {
         id:"FREF",
